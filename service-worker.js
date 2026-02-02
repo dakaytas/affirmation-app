@@ -62,12 +62,3 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
-
-self.addEventListener('notificationclick', function (event) {
-  event.notification.close();
-
-  // Tıklandığında uygulamayı aç
-  event.waitUntil(
-    clients.openWindow('/')
-  );
-});
