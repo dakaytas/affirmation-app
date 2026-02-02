@@ -765,15 +765,17 @@
       }
 
       .install-banner {
-        position: fixed;
-        left: 10px;
-        right: 10px;
-        bottom: 10px;
+        position: absolute;
+        left: 50%;
+        bottom: 16px;
+        transform: translateX(-50%);
         z-index: 1000;
         display: none;
-        align-items: center;
+        flex-direction: column;
+        align-items: stretch;
         gap: var(--gap-sm);
         padding: 20px 18px;
+        width: min(420px, 90%);
         border-radius: 12px;
         border: 1px solid var(--border);
         background: rgba(255, 255, 255, 0.95);
@@ -805,6 +807,7 @@
         display: flex;
         gap: var(--gap-sm);
         flex-shrink: 0;
+        justify-content: flex-end;
       }
       .install-banner__actions .pbtn {
         padding: 10px 14px;
@@ -1229,6 +1232,16 @@
           <div id="chipFavs" class="chip">0 favorites</div>
           <div id="chipDeck" class="chip">1/1</div>
         </div>
+        <div id="installBanner" class="install-banner" aria-hidden="true">
+          <div class="install-banner__content">
+            <img src="icon_48.png" alt="" class="install-banner__icon" />
+            <div class="install-banner__text">Install the app?</div>
+          </div>
+          <div class="install-banner__actions">
+            <button id="btnInstallPwa" class="pbtn small">Install</button>
+            <button id="btnInstallDismiss" class="pbtn small">Dismiss</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1359,16 +1372,6 @@
         </button>
       </div>
     </dialog>
-    <div id="installBanner" class="install-banner" aria-hidden="true">
-      <div class="install-banner__content">
-        <img src="icon_48.png" alt="" class="install-banner__icon" />
-        <div class="install-banner__text">Install the app?</div>
-      </div>
-      <div class="install-banner__actions">
-        <button id="btnInstallPwa" class="pbtn small">Install</button>
-        <button id="btnInstallDismiss" class="pbtn small">Dismiss</button>
-      </div>
-    </div>
     <script>
       "use strict";
 
