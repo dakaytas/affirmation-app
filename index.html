@@ -1153,12 +1153,11 @@
         body {
           align-items: flex-start;
           padding: var(--spacing-md);
+          padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom));
           overflow-y: auto;
         }
         .app {
           margin: 0 auto;
-          max-height: calc(100svh - (var(--spacing-md) * 2));
-          overflow-y: auto;
         }
       }
     </style>
@@ -2888,6 +2887,7 @@
     </script>
   </body>
 </html>
+
 
 
 
