@@ -2296,7 +2296,10 @@
             border: "0",
           });
           document.body.appendChild(iframe);
-          iframe.onload = () => {
+          let printed = false;
+          const safePrint = () => {
+            if (printed) return;
+            printed = true;
             try {
               iframe.contentWindow.focus();
               iframe.contentWindow.print();
@@ -2305,7 +2308,29 @@
             }
             setTimeout(() => iframe.remove(), 600);
           };
+          const tryPrint = (attempt = 0) => {
+            if (printed) return;
+            if (!iframe.contentWindow || !iframe.contentDocument) {
+              if (attempt < 6) {
+                setTimeout(() => tryPrint(attempt + 1), 60);
+                return;
+              }
+              openAndPrint(htmlStr);
+              return;
+            }
+            if (iframe.contentDocument.readyState !== "complete") {
+              if (attempt < 6) {
+                setTimeout(() => tryPrint(attempt + 1), 60);
+                return;
+              }
+            }
+            safePrint();
+          };
+          iframe.onload = () => {
+            setTimeout(() => tryPrint(0), 30);
+          };
           iframe.srcdoc = htmlStr;
+          setTimeout(() => tryPrint(0), 200);
         } catch (e) {
           openAndPrint(htmlStr);
         }
@@ -2883,3 +2908,4 @@
     </script>
   </body>
 </html>
+
