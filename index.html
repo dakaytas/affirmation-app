@@ -646,6 +646,25 @@
         border-top: 1px solid var(--border);
       }
 
+      dialog .pbtn:focus-visible {
+        outline: 2px solid rgba(79, 70, 229, 0.45);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+      }
+      #clearAlert .pbtn:focus-visible {
+        outline: 2px solid rgba(79, 70, 229, 0.45);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+      }
+      [data-theme="dark"] dialog .pbtn:focus-visible {
+        outline-color: rgba(226, 232, 240, 0.6);
+        box-shadow: 0 0 0 3px rgba(226, 232, 240, 0.18);
+      }
+      [data-theme="dark"] #clearAlert .pbtn:focus-visible {
+        outline-color: rgba(226, 232, 240, 0.6);
+        box-shadow: 0 0 0 3px rgba(226, 232, 240, 0.18);
+      }
+
       #btnFav.is-favorite {
         background-image: none !important;
         color: white !important;
@@ -773,7 +792,7 @@
         display: none;
         flex-direction: column;
         align-items: stretch;
-        gap: var(--gap-sm);
+        gap: var(--gap-md);
         padding: 20px 18px;
         width: min(420px, 90%);
         border-radius: 12px;
@@ -791,6 +810,7 @@
         gap: var(--gap-sm);
         flex: 1;
         min-width: 0;
+        justify-content: center;
       }
       .install-banner__icon {
         width: 24px;
@@ -802,12 +822,13 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        text-align: center;
       }
       .install-banner__actions {
         display: flex;
         gap: var(--gap-sm);
         flex-shrink: 0;
-        justify-content: flex-end;
+        justify-content: center;
       }
       .install-banner__actions .pbtn {
         padding: 10px 14px;
@@ -1013,7 +1034,6 @@
           margin-left: auto;
         }
         .quote {
-          padding: 28px 80px !important;
           min-height: 160px;
         }
         .nav-arrow {
@@ -1084,7 +1104,7 @@
         .quote {
           padding: var(--spacing-md) 32px !important;
           font-size: 1.1em !important;
-          min-height: 100px;
+          min-height: 135px;
           box-sizing: border-box;
           line-height: 1.4;
           width: 100%;
@@ -1221,7 +1241,7 @@
             <div class="alert-actions">
               <button id="btnClearCancel" class="pbtn small">Cancel</button>
               <button id="btnClearConfirm" class="pbtn primary-danger small">
-                Yes, clear
+                Clear all data
               </button>
             </div>
           </div>
@@ -1238,8 +1258,8 @@
             <div class="install-banner__text">Install the app?</div>
           </div>
           <div class="install-banner__actions">
-            <button id="btnInstallPwa" class="pbtn small">Install</button>
-            <button id="btnInstallDismiss" class="pbtn small">Dismiss</button>
+            <button id="btnInstallPwa" class="pbtn">Install</button>
+            <button id="btnInstallDismiss" class="pbtn">Dismiss</button>
           </div>
         </div>
       </div>
@@ -2472,14 +2492,32 @@
           });
 
         const dlgAdd = document.getElementById("dlgAdd");
+        const focusAddInput = () => {
+          const input = document.getElementById("txtAff");
+          if (input) {
+            requestAnimationFrame(() => input.focus());
+          }
+        };
         document.getElementById("btnAdd").addEventListener("click", () => {
           document.getElementById("txtAff").value = "";
           document.getElementById("addErr").style.display = "none";
           isOpenedFromMyQuotes = false;
-          if (dlgAdd) dlgAdd.showModal();
+          if (dlgAdd) {
+            dlgAdd.showModal();
+            focusAddInput();
+          }
         });
 
         document.getElementById("btnAddSave").addEventListener("click", addAff);
+        const txtAff = document.getElementById("txtAff");
+        if (txtAff) {
+          txtAff.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              document.getElementById("btnAddSave").click();
+            }
+          });
+        }
 
         document
           .getElementById("btnEditSave")
@@ -2518,7 +2556,11 @@
             document.getElementById("txtAff").value = "";
             document.getElementById("addErr").style.display = "none";
             isOpenedFromMyQuotes = true;
-            document.getElementById("dlgAdd").showModal();
+            const addDialog = document.getElementById("dlgAdd");
+            if (addDialog) {
+              addDialog.showModal();
+              focusAddInput();
+            }
           });
 
         const btnTheme = document.getElementById("btnTheme");
@@ -2536,9 +2578,12 @@
         const btnClearCancel = document.getElementById("btnClearCancel");
 
         if (btnResetAll && clearAlert)
-          btnResetAll.addEventListener("click", () =>
-            clearAlert.classList.add("show"),
-          );
+          btnResetAll.addEventListener("click", () => {
+            clearAlert.classList.add("show");
+            if (btnClearCancel) {
+              requestAnimationFrame(() => btnClearCancel.focus());
+            }
+          });
         if (btnClearCancel)
           btnClearCancel.addEventListener("click", () =>
             clearAlert.classList.remove("show"),
@@ -2560,6 +2605,13 @@
             toast("Cleared");
           });
 
+        const getActiveModalRoot = () => {
+          const openDialog = document.querySelector("dialog[open]");
+          if (openDialog) return openDialog;
+          if (clearAlert && clearAlert.classList.contains("show")) return clearAlert;
+          return null;
+        };
+
         const btnDeleteConfirm = document.getElementById("btnDeleteConfirm");
         const btnDeleteCancel = document.getElementById("btnDeleteCancel");
         const deleteAlert = document.getElementById("dlgDeleteAlert");
@@ -2571,6 +2623,157 @@
           btnDeleteCancel.addEventListener("click", cancelDelete);
 
         document.addEventListener("keydown", (e) => {
+          const modalRoot = getActiveModalRoot();
+          if (modalRoot) {
+            if (e.key === "Escape") {
+              if (modalRoot.tagName === "DIALOG") {
+                modalRoot.close();
+              } else if (modalRoot === clearAlert) {
+                clearAlert.classList.remove("show");
+              }
+              e.preventDefault();
+              e.stopPropagation();
+              return;
+            }
+            const isArrow =
+              e.key === "ArrowRight" ||
+              e.key === "ArrowLeft" ||
+              e.key === "ArrowUp" ||
+              e.key === "ArrowDown";
+            const isEnter = e.key === "Enter";
+            if (!isArrow && !isEnter) return;
+
+            const focusables = Array.from(
+              modalRoot.querySelectorAll(
+                "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])",
+              ),
+            ).filter((el) => !el.disabled && el.offsetParent !== null);
+
+            if (!focusables.length) return;
+
+          const activeElement = document.activeElement;
+          if (
+            isArrow &&
+            activeElement &&
+            (activeElement.tagName === "TEXTAREA" ||
+              activeElement.tagName === "INPUT" ||
+              activeElement.tagName === "SELECT")
+          ) {
+            if (
+              modalRoot.id === "dlgAdd" &&
+              activeElement.tagName === "TEXTAREA" &&
+              (e.key === "ArrowDown" || e.key === "ArrowUp")
+            ) {
+              // allow up/down to move from textarea to buttons
+            } else {
+              return;
+            }
+          }
+
+            if (isEnter) {
+              const active = document.activeElement;
+              if (modalRoot.contains(active) && typeof active.click === "function") {
+                active.click();
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+              }
+              if (modalRoot === clearAlert && btnClearCancel) {
+                btnClearCancel.click();
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+              }
+              return;
+            }
+
+          const active =
+            modalRoot.contains(activeElement) && activeElement
+              ? activeElement
+              : focusables[0];
+
+          if (!modalRoot.contains(activeElement)) {
+            active.focus();
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
+
+          const items = focusables.map((el) => {
+            const rect = el.getBoundingClientRect();
+            return {
+              el,
+              x: rect.left + rect.width / 2,
+              y: rect.top + rect.height / 2,
+            };
+          });
+
+          const current = items.find((i) => i.el === active) || items[0];
+          const rowTol = 24;
+          const colTol = 24;
+
+          const pickCandidate = (dirKey) => {
+            const horiz = dirKey === "ArrowLeft" || dirKey === "ArrowRight";
+            const forward = dirKey === "ArrowRight" || dirKey === "ArrowDown";
+
+            let candidates = items.filter((i) => i.el !== current.el);
+            if (horiz) {
+              candidates = candidates.filter(
+                (i) => Math.abs(i.y - current.y) <= rowTol,
+              );
+              candidates = candidates.filter((i) =>
+                forward ? i.x > current.x : i.x < current.x,
+              );
+              candidates.sort(
+                (a, b) => Math.abs(a.x - current.x) - Math.abs(b.x - current.x),
+              );
+            } else {
+              candidates = candidates.filter(
+                (i) => Math.abs(i.x - current.x) <= colTol,
+              );
+              candidates = candidates.filter((i) =>
+                forward ? i.y > current.y : i.y < current.y,
+              );
+              candidates.sort(
+                (a, b) => Math.abs(a.y - current.y) - Math.abs(b.y - current.y),
+              );
+            }
+
+            if (candidates.length) return candidates[0].el;
+
+            candidates = items.filter((i) => i.el !== current.el);
+            if (horiz) {
+              candidates = candidates.filter((i) =>
+                forward ? i.x > current.x : i.x < current.x,
+              );
+              candidates.sort(
+                (a, b) =>
+                  Math.abs(a.x - current.x) - Math.abs(b.x - current.x) ||
+                  Math.abs(a.y - current.y) - Math.abs(b.y - current.y),
+              );
+            } else {
+              candidates = candidates.filter((i) =>
+                forward ? i.y > current.y : i.y < current.y,
+              );
+              candidates.sort(
+                (a, b) =>
+                  Math.abs(a.y - current.y) - Math.abs(b.y - current.y) ||
+                  Math.abs(a.x - current.x) - Math.abs(b.x - current.x),
+              );
+            }
+
+            return candidates.length ? candidates[0].el : null;
+          };
+
+          const target = pickCandidate(e.key);
+          if (target) {
+            target.focus();
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          return;
+          }
+
           const activeElement = document.activeElement;
           if (
             activeElement.tagName === "TEXTAREA" ||
@@ -2637,7 +2840,7 @@
           if (!deferredPrompt) {
             localStorage.setItem("pwa-install-dismissed", "true");
             hideInstallBanner();
-            toast("Tarayici menusunden Ana Ekrana Ekle.");
+            toast("Use the browser menu to add to Home Screen.");
             return;
           }
           try {
@@ -2666,3 +2869,4 @@
     </script>
   </body>
 </html>
+
