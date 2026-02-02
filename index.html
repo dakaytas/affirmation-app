@@ -763,67 +763,6 @@
         }
       }
 
-      .install-banner {
-        position: absolute;
-        left: 50%;
-        bottom: 16px;
-        transform: translateX(-50%);
-        z-index: 1000;
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-        gap: var(--gap-md);
-        padding: 20px 18px;
-        width: min(420px, 90%);
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: var(--shadow);
-        color: var(--text);
-      }
-      .install-banner.show {
-        display: flex;
-      }
-      .install-banner__content {
-        display: flex;
-        align-items: center;
-        gap: var(--gap-sm);
-        flex: 1;
-        min-width: 0;
-        justify-content: center;
-      }
-      .install-banner__icon {
-        width: 24px;
-        height: 24px;
-        border-radius: 6px;
-      }
-      .install-banner__text {
-        font-size: 16px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: center;
-      }
-      .install-banner__actions {
-        display: flex;
-        gap: var(--gap-sm);
-        flex-shrink: 0;
-        justify-content: center;
-      }
-      .install-banner__actions .pbtn {
-        padding: 10px 14px;
-        min-width: 0 !important;
-        width: auto !important;
-        max-width: none !important;
-        font-size: 16px;
-        flex: 0 0 auto;
-        min-height: 40px;
-      }
-      [data-theme="dark"] .install-banner {
-        background: rgba(15, 18, 32, 0.95);
-        color: #e5e7eb;
-        border-color: rgba(148, 163, 184, 0.35);
-      }
 
       @media (prefers-reduced-motion: reduce) {
         .star-twinkle,
@@ -1244,16 +1183,6 @@
           <div id="chipCount" class="chip">0 quotes</div>
           <div id="chipFavs" class="chip">0 favorites</div>
           <div id="chipDeck" class="chip">1/1</div>
-        </div>
-        <div id="installBanner" class="install-banner" aria-hidden="true">
-          <div class="install-banner__content">
-            <img src="icon_48.png" alt="" class="install-banner__icon" />
-            <div class="install-banner__text">Install the app?</div>
-          </div>
-          <div class="install-banner__actions">
-            <button id="btnInstallPwa" class="pbtn">Install</button>
-            <button id="btnInstallDismiss" class="pbtn">Dismiss</button>
-          </div>
         </div>
       </div>
     </div>
@@ -2821,125 +2750,12 @@
         });
       }
 
-      let deferredPrompt;
-      const installBanner = document.getElementById("installBanner");
-      const installButton = document.getElementById("btnInstallPwa");
-      const installDismiss = document.getElementById("btnInstallDismiss");
-      const isStandaloneMode = () =>
-        window.matchMedia("(display-mode: standalone)").matches ||
-        window.matchMedia("(display-mode: fullscreen)").matches ||
-        window.matchMedia("(display-mode: minimal-ui)").matches ||
-        window.navigator.standalone;
-      let installDismissed = false;
-      let isInstalled =
-        isStandaloneMode() || localStorage.getItem("pwa-installed") === "true";
-      const INSTALLED_CACHE = "pwa-install-state";
-      const INSTALLED_FLAG_URL = "/__pwa_installed";
-
-      const setInstalledFlag = async () => {
-        if (!("caches" in window)) return;
-        const cache = await caches.open(INSTALLED_CACHE);
-        await cache.put(INSTALLED_FLAG_URL, new Response("true"));
-      };
-
-      const hasInstalledFlag = async () => {
-        if (!("caches" in window)) return false;
-        const cache = await caches.open(INSTALLED_CACHE);
-        const res = await cache.match(INSTALLED_FLAG_URL);
-        return !!res;
-      };
-
-      if (isStandaloneMode() && !localStorage.getItem("pwa-installed")) {
-        localStorage.setItem("pwa-installed", "true");
-        isInstalled = true;
-        setInstalledFlag().catch(() => null);
-      }
-
-      const markInstalled = () => {
-        isInstalled = true;
-        localStorage.setItem("pwa-installed", "true");
-        setInstalledFlag().catch(() => null);
-        hideInstallBanner();
-      };
-
-      const checkInstalledRelatedApps = async () => {
-        if (isInstalled || !("getInstalledRelatedApps" in navigator)) return;
-        try {
-          const related = await navigator.getInstalledRelatedApps();
-          if (related && related.length) {
-            markInstalled();
-          }
-        } catch (e) {
-          return;
-        }
-      };
-
-      const canShowInstallBanner = () =>
-        !isStandaloneMode() && !isInstalled && !installDismissed;
-
-      const showInstallBanner = () => {
-        if (!installBanner || !canShowInstallBanner()) return;
-        installBanner.classList.add("show");
-        installBanner.setAttribute("aria-hidden", "false");
-      };
-
-      const hideInstallBanner = () => {
-        if (!installBanner) return;
-        installBanner.classList.remove("show");
-        installBanner.setAttribute("aria-hidden", "true");
-      };
-
       window.addEventListener("beforeinstallprompt", (e) => {
-        if (!canShowInstallBanner()) return;
-        e.preventDefault();
-        deferredPrompt = e;
-        showInstallBanner();
-      });
-
-      window.addEventListener("appinstalled", () => {
-        markInstalled();
-      });
-
-      if (installButton) {
-        installButton.addEventListener("click", async () => {
-          if (!deferredPrompt) {
-            installDismissed = true;
-            hideInstallBanner();
-            toast("Use the browser menu to add to Home Screen.");
-            return;
-          }
-          try {
-            await deferredPrompt.prompt();
-            const choice = await deferredPrompt.userChoice;
-            if (choice && choice.outcome === "accepted") {
-              markInstalled();
-            }
-          } finally {
-            installDismissed = true;
-            deferredPrompt = null;
-            hideInstallBanner();
-          }
-        });
-      }
-
-      if (installDismiss) {
-        installDismiss.addEventListener("click", () => {
-          installDismissed = true;
-          hideInstallBanner();
-        });
-      }
-
-      setTimeout(() => {
-        if (canShowInstallBanner()) {
-          showInstallBanner();
-        }
-      }, 1500);
-
-      checkInstalledRelatedApps();
-      hasInstalledFlag().then((flag) => {
-        if (flag) markInstalled();
+        // Let the browser handle the install prompt UI.
+        // Do not call preventDefault.
       });
     </script>
   </body>
 </html>
+
 
