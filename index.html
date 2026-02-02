@@ -1148,6 +1148,18 @@
           height: 20px !important;
         }
       }
+
+      @media (max-height: 480px) and (orientation: landscape) {
+        body {
+          align-items: flex-start;
+          padding-top: var(--spacing-md);
+          padding-bottom: var(--spacing-md);
+          overflow-y: auto;
+        }
+        .app {
+          margin-top: 0;
+        }
+      }
     </style>
   </head>
 
@@ -2873,9 +2885,3 @@
     </script>
   </body>
 </html>
-
-
-
-
-
-
