@@ -2849,10 +2849,9 @@
       const isStandalone =
         window.matchMedia("(display-mode: standalone)").matches ||
         window.navigator.standalone;
-      let installDismissed = false;
 
       const canShowInstallBanner = () =>
-        !isStandalone && !installDismissed;
+        !isStandalone && !sessionStorage.getItem("pwa-install-dismissed");
 
       const showInstallBanner = () => {
         if (!installBanner || !canShowInstallBanner()) return;
@@ -2876,7 +2875,7 @@
       if (installButton) {
         installButton.addEventListener("click", async () => {
           if (!deferredPrompt) {
-            installDismissed = true;
+            sessionStorage.setItem("pwa-install-dismissed", "true");
             hideInstallBanner();
             toast("Use the browser menu to add to Home Screen.");
             return;
@@ -2885,7 +2884,7 @@
             await deferredPrompt.prompt();
             await deferredPrompt.userChoice;
           } finally {
-            installDismissed = true;
+            sessionStorage.setItem("pwa-install-dismissed", "true");
             deferredPrompt = null;
             hideInstallBanner();
           }
@@ -2894,7 +2893,7 @@
 
       if (installDismiss) {
         installDismiss.addEventListener("click", () => {
-          installDismissed = true;
+          sessionStorage.setItem("pwa-install-dismissed", "true");
           hideInstallBanner();
         });
       }
@@ -2907,6 +2906,7 @@
     </script>
   </body>
 </html>
+
 
 
 
