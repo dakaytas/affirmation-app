@@ -1035,6 +1035,12 @@
         }
       }
 
+      @media (max-width: 480px) and (orientation: landscape) {
+        .app {
+          min-height: auto;
+        }
+      }
+
       @media (min-width: 371px) and (max-width: 480px) {
         .tools {
           gap: var(--spacing-md) !important;
@@ -1153,13 +1159,14 @@
         body {
           align-items: flex-start;
           padding: var(--spacing-md);
-          padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom) + 8px);
+          padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom));
           overflow-y: auto;
         }
         .app {
           margin: 0 auto;
         }
       }
+
     </style>
   </head>
 
@@ -2887,6 +2894,7 @@
     </script>
   </body>
 </html>
+
 
 
 
