@@ -1035,12 +1035,6 @@
         }
       }
 
-      @media (max-width: 480px) and (orientation: landscape) {
-        .app {
-          min-height: auto;
-        }
-      }
-
       @media (min-width: 371px) and (max-width: 480px) {
         .tools {
           gap: var(--spacing-md) !important;
@@ -2837,9 +2831,29 @@
         window.matchMedia("(display-mode: minimal-ui)").matches ||
         window.navigator.standalone;
       let installDismissed = false;
+      let isInstalled =
+        isStandaloneMode() || localStorage.getItem("pwa-installed") === "true";
+
+      const markInstalled = () => {
+        isInstalled = true;
+        localStorage.setItem("pwa-installed", "true");
+        hideInstallBanner();
+      };
+
+      const checkInstalledRelatedApps = async () => {
+        if (isInstalled || !("getInstalledRelatedApps" in navigator)) return;
+        try {
+          const related = await navigator.getInstalledRelatedApps();
+          if (related && related.length) {
+            markInstalled();
+          }
+        } catch (e) {
+          return;
+        }
+      };
 
       const canShowInstallBanner = () =>
-        !isStandaloneMode() && !installDismissed;
+        !isStandaloneMode() && !isInstalled && !installDismissed;
 
       const showInstallBanner = () => {
         if (!installBanner || !canShowInstallBanner()) return;
@@ -2860,6 +2874,10 @@
         showInstallBanner();
       });
 
+      window.addEventListener("appinstalled", () => {
+        markInstalled();
+      });
+
       if (installButton) {
         installButton.addEventListener("click", async () => {
           if (!deferredPrompt) {
@@ -2870,7 +2888,10 @@
           }
           try {
             await deferredPrompt.prompt();
-            await deferredPrompt.userChoice;
+            const choice = await deferredPrompt.userChoice;
+            if (choice && choice.outcome === "accepted") {
+              markInstalled();
+            }
           } finally {
             installDismissed = true;
             deferredPrompt = null;
@@ -2891,9 +2912,12 @@
           showInstallBanner();
         }
       }, 1500);
+
+      checkInstalledRelatedApps();
     </script>
   </body>
 </html>
+
 
 
 
