@@ -1157,6 +1157,8 @@
         }
         .app {
           margin: 0 auto;
+          max-height: calc(100svh - (var(--spacing-md) * 2));
+          overflow-y: auto;
         }
       }
     </style>
@@ -2823,13 +2825,15 @@
       const installBanner = document.getElementById("installBanner");
       const installButton = document.getElementById("btnInstallPwa");
       const installDismiss = document.getElementById("btnInstallDismiss");
-      const isStandalone =
+      const isStandaloneMode = () =>
         window.matchMedia("(display-mode: standalone)").matches ||
+        window.matchMedia("(display-mode: fullscreen)").matches ||
+        window.matchMedia("(display-mode: minimal-ui)").matches ||
         window.navigator.standalone;
       let installDismissed = false;
 
       const canShowInstallBanner = () =>
-        !isStandalone && !installDismissed;
+        !isStandaloneMode() && !installDismissed;
 
       const showInstallBanner = () => {
         if (!installBanner || !canShowInstallBanner()) return;
@@ -2884,5 +2888,6 @@
     </script>
   </body>
 </html>
+
 
 
