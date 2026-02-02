@@ -2834,6 +2834,11 @@
       let isInstalled =
         isStandaloneMode() || localStorage.getItem("pwa-installed") === "true";
 
+      if (isStandaloneMode() && !localStorage.getItem("pwa-installed")) {
+        localStorage.setItem("pwa-installed", "true");
+        isInstalled = true;
+      }
+
       const markInstalled = () => {
         isInstalled = true;
         localStorage.setItem("pwa-installed", "true");
@@ -2917,6 +2922,7 @@
     </script>
   </body>
 </html>
+
 
 
 
