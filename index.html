@@ -2833,15 +2833,32 @@
       let installDismissed = false;
       let isInstalled =
         isStandaloneMode() || localStorage.getItem("pwa-installed") === "true";
+      const INSTALLED_CACHE = "pwa-install-state";
+      const INSTALLED_FLAG_URL = "/__pwa_installed";
+
+      const setInstalledFlag = async () => {
+        if (!("caches" in window)) return;
+        const cache = await caches.open(INSTALLED_CACHE);
+        await cache.put(INSTALLED_FLAG_URL, new Response("true"));
+      };
+
+      const hasInstalledFlag = async () => {
+        if (!("caches" in window)) return false;
+        const cache = await caches.open(INSTALLED_CACHE);
+        const res = await cache.match(INSTALLED_FLAG_URL);
+        return !!res;
+      };
 
       if (isStandaloneMode() && !localStorage.getItem("pwa-installed")) {
         localStorage.setItem("pwa-installed", "true");
         isInstalled = true;
+        setInstalledFlag().catch(() => null);
       }
 
       const markInstalled = () => {
         isInstalled = true;
         localStorage.setItem("pwa-installed", "true");
+        setInstalledFlag().catch(() => null);
         hideInstallBanner();
       };
 
@@ -2919,6 +2936,10 @@
       }, 1500);
 
       checkInstalledRelatedApps();
+      hasInstalledFlag().then((flag) => {
+        if (flag) markInstalled();
+      });
     </script>
   </body>
 </html>
+
