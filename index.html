@@ -1,0 +1,2665 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#4f46e5" />
+    <title>Affirmations</title>
+
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Affirmations" />
+    <link rel="apple-touch-icon" href="icon_192.png" />
+    <link rel="icon" href="icon_48.png" type="image/png" />
+    <link
+      rel="preload"
+      as="image"
+      href="bg-desktop.webp"
+      media="(min-width:901px)"
+      alt="Large watercolor glitter agate beach background"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="bg-mobile.webp"
+      media="(max-width:900px)"
+      alt="Small watercolor glitter agate beach background"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: radial-gradient(
+          1200px 800px at 20% 10%,
+          #eef1ff,
+          #f6ecff 30%,
+          #eaf7ff 62%,
+          #fbfbff 100%
+        );
+        --text: #0f172a;
+        --muted: #475569;
+        --accent: #4f46e5;
+        --accent-2: #22c55e;
+        --card-bg: rgba(255, 255, 255, 0.78);
+        --border: rgba(15, 23, 42, 0.1);
+        --shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+        --danger: #ef4444;
+        --pill-font: "Quicksand", "Segoe UI", Tahoma, Geneva, sans-serif;
+
+        --spacing-xs: 4px;
+        --spacing-sm: 8px;
+        --spacing-md: 12px;
+        --spacing-lg: 16px;
+        --spacing-xl: 24px;
+        --spacing-2xl: 26px;
+
+        --padding-sm: 8px 12px;
+        --padding-md: 10px 16px;
+        --padding-lg: 14px 16px;
+        --padding-xl: 16px;
+
+        --gap-sm: 8px;
+        --gap-md: 12px;
+        --gap-lg: 16px;
+        --gap-xl: 24px;
+
+        --ui-bg: url("bg-desktop.webp");
+        --ui-overlay: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.25),
+          rgba(255, 255, 255, 0.16)
+        );
+      }
+
+      [data-theme="dark"] {
+        --bg: radial-gradient(
+          1200px 800px at 15% 8%,
+          #0b1226,
+          #0c1430 35%,
+          #0a162e 60%,
+          #0a1330 100%
+        );
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --accent: #8b5cf6;
+        --accent-2: #22c55e;
+        --card-bg: rgba(24, 32, 56, 0.55);
+        --border: rgba(148, 163, 184, 0.22);
+        --shadow: 0 10px 30px rgba(2, 6, 23, 0.5);
+        --danger: #f87171;
+
+        --ui-overlay: linear-gradient(
+          to bottom,
+          rgba(10, 15, 30, 0.28),
+          rgba(10, 15, 30, 0.2)
+        );
+      }
+
+      [data-theme="dark"] .brand {
+        background: rgba(71, 85, 105, 0.85) !important;
+        border-color: rgba(255, 255, 255, 0.4) !important;
+        color: #ffffff !important;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.25),
+          0 6px 18px rgba(0, 0, 0, 0.6) !important;
+      }
+
+      [data-theme="dark"] .brand div {
+        color: #ffffff !important;
+      }
+
+      :root:not([data-theme="dark"]) #btnTheme {
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid var(--border);
+        color: #404040;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.6),
+          0 4px 10px rgba(0, 0, 0, 0.06);
+        backdrop-filter: blur(8px);
+      }
+
+      [data-theme="dark"] #btnTheme {
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: #e5e7eb !important;
+        border-color: rgba(148, 163, 184, 0.45) !important;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial;
+        color: var(--text);
+        background: var(--bg) fixed;
+
+        padding: 16px;
+      }
+
+      .app {
+        max-width: 1100px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 24px;
+        box-sizing: border-box;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        overflow: clip;
+        backdrop-filter: blur(10px) saturate(120%);
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .app::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          var(--ui-overlay),
+          var(--ui-bg) center 65% / cover no-repeat;
+        border-radius: 20px;
+        filter: saturate(1.02) contrast(1.02);
+        z-index: -1;
+      }
+
+      .no-image-bg::before {
+        display: none !important;
+      }
+
+      .bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        max-width: 100%;
+        margin-top: 0;
+        padding-top: 40px !important;
+      }
+
+      .brand {
+        display: block;
+        font-family: "Dancing Script", cursive;
+        font-size: 36px;
+        font-weight: 700;
+        color: #ebf8fa;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        text-align: center;
+      }
+
+      .logo {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        background: conic-gradient(
+          from 45deg,
+          var(--accent),
+          var(--accent-2),
+          var(--accent)
+        );
+        box-shadow:
+          inset 0 0 0 2px rgba(255, 255, 255, 0.6),
+          0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .right {
+        display: flex;
+        gap: 8px;
+        margin-top: 2px;
+        position: relative;
+        z-index: 11;
+        margin-left: auto;
+      }
+
+      .right .pbtn {
+        box-shadow:
+          0 6px 16px rgba(0, 0, 0, 0.18),
+          inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      }
+
+      .content {
+        padding: var(--padding-xl);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--gap-xl);
+        position: relative;
+        min-height: 0;
+        flex: 1;
+        padding-top: 62px !important;
+      }
+
+      .quote {
+        font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+        font-style: italic;
+        font-size: clamp(20px, 3.2vw, 30px);
+        line-height: 1.45;
+        text-align: center;
+        padding: 28px 56px;
+        border-radius: 16px;
+        position: relative;
+        min-height: 140px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.86),
+          rgba(255, 255, 255, 0.72)
+        );
+        border: 1px solid var(--border);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fade 0.25s ease;
+      }
+
+      [data-theme="dark"] .brand {
+        color: #ffffff !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        z-index: 10;
+      }
+
+      [data-theme="dark"] .quote {
+        color: #1c1c1c !important;
+      }
+
+      .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        cursor: pointer;
+        transition:
+          transform 0.12s ease,
+          opacity 0.2s ease;
+        user-select: none;
+        color: #4a4a4a;
+      }
+
+      [data-theme="dark"] .nav-arrow {
+        background: transparent;
+        color: #6a6a6a;
+      }
+
+      .nav-arrow:hover {
+        transform: translateY(-50%) scale(1.06);
+      }
+
+      .nav-arrow:active {
+        transform: translateY(-50%) scale(0.98);
+      }
+
+      .nav-prev {
+        left: 10px;
+      }
+
+      .nav-next {
+        right: 10px;
+      }
+
+      .tools {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: var(--gap-md);
+        row-gap: var(--gap-lg);
+        margin: 22px 0 0 0;
+      }
+
+      .pbtn {
+        border: 1px solid var(--border);
+        border-radius: 9999px;
+        padding: var(--padding-md);
+        font-family: var(--pill-font);
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        background: #fff;
+        color: #404040;
+        cursor: pointer;
+        box-shadow:
+          0 6px 16px rgba(0, 0, 0, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        transition:
+          transform 0.12s ease,
+          filter 0.12s ease;
+        text-align: center;
+        outline: none;
+      }
+
+      .pbtn:focus,
+      .hbtn:focus,
+      button:focus {
+        outline: none;
+      }
+
+      .pbtn:hover {
+        transform: translateY(-1px) scale(1.01);
+        filter: brightness(1.03);
+      }
+
+      .pbtn:active {
+        transform: translateY(0) scale(0.98);
+      }
+
+      .hbtn {
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transform: translateY(-1px) !important;
+        box-shadow:
+          0 2px 5px rgba(0, 0, 0, 0.1),
+          0 0 0 1px rgba(0, 0, 0, 0.05) !important;
+        border: none !important;
+        cursor: pointer;
+        font-size: 26px !important;
+        transition: all 0.2s ease;
+      }
+
+      #btnTheme svg {
+        margin-left: 1px;
+      }
+
+      .hbtn:hover {
+        background: rgba(208, 208, 208, 0.9) !important;
+        transform: translateY(-2px) !important;
+        box-shadow:
+          0 4px 8px rgba(0, 0, 0, 0.15),
+          0 0 0 1px rgba(0, 0, 0, 0.1) !important;
+        color: var(--text) !important;
+      }
+
+      [data-theme="dark"] .hbtn:hover {
+        background: rgba(
+          255,
+          255,
+          255,
+          0.1
+        ) !important;
+        box-shadow:
+          0 4px 8px rgba(255, 255, 255, 0.1),
+          0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+        color: var(--text) !important;
+      }
+
+      .hbtn:active {
+        background: rgba(148, 163, 184, 0.15) !important;
+        transform: translateY(-1px) !important;
+      }
+
+      [data-theme="dark"] .hbtn {
+        color: var(--muted) !important;
+      }
+
+      .copy {
+        background-image: linear-gradient(135deg, #e3fee9, #baffc9);
+      }
+
+      .share {
+        background-image: linear-gradient(135deg, #fcfdc1, #e1e988);
+      }
+
+      .print {
+        background-image: linear-gradient(135deg, #fdeeaf, #ffc788);
+      }
+
+      .fav {
+        background-image: linear-gradient(135deg, #fcd9d9, #fdbae0);
+      }
+
+      .favs {
+        background-image: linear-gradient(135deg, rgb(253, 250, 213), #fefe97);
+      }
+
+      .add {
+        background-image: linear-gradient(135deg, #e9fcf7, #b8dbd3);
+      }
+
+      .reset {
+        background-image: linear-gradient(135deg, #fccfcf, #fca1a1);
+      }
+
+      .myquotes {
+        background-image: linear-gradient(135deg, #d0e2f8, #a9cdfb);
+      }
+
+      [data-theme="dark"] .pbtn {
+        background: rgba(255, 255, 255, 0.1);
+        color: #e5e7eb;
+        border-color: rgba(148, 163, 184, 0.45);
+        background-image: none;
+      }
+
+      [data-theme="dark"] .myquotes {
+        background: rgba(148, 163, 184, 0.2);
+        background-image: none;
+        color: #e5e7eb;
+        border-color: rgba(148, 163, 184, 0.6);
+      }
+
+      .primary {
+        border-color: transparent;
+        background-image: linear-gradient(135deg, #a5b4fc, #818cf8);
+        color: #fff;
+      }
+
+      [data-theme="dark"] .primary {
+        background: rgba(148, 163, 184, 0.5);
+        background-image: none;
+        color: #e5e7eb;
+        border-color: rgba(148, 163, 184, 0.6);
+      }
+
+      .primary-danger {
+        background-image: linear-gradient(135deg, #ffb3b3, #ff8c8c);
+        color: #fff;
+      }
+
+      .small {
+        padding: var(--padding-sm);
+        font-size: 14px;
+      }
+
+      .chipbar {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: auto;
+        padding-bottom: 8px;
+      }
+
+      :root:not([data-theme="dark"]) .chipbar {
+        color: rgba(255, 255, 255, 0.92);
+        text-shadow: 0 1px 2px rgba(15, 23, 42, 0.25);
+      }
+
+      [data-theme="dark"] .chipbar {
+        color: var(--muted);
+        text-shadow: none;
+      }
+
+      .chip {
+        border: 1px dashed var(--border);
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+
+      .alert-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.1);
+        z-index: 9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+
+      .alert-overlay.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .alert-box {
+        padding: 20px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: var(--shadow);
+        width: min(400px, 90vw);
+        text-align: center;
+      }
+
+      [data-theme="dark"] .alert-box {
+        background: rgba(20, 26, 44, 0.96);
+        color: #e5e7eb;
+        border-color: rgba(148, 163, 184, 0.35);
+      }
+
+      .alert-msg {
+        font-weight: 600;
+        color: var(--muted);
+        margin-top: 10px;
+      }
+
+      .alert-actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .alert h4 {
+        margin: 0;
+        font-size: 18px;
+        color: var(--text);
+      }
+
+      dialog {
+        width: min(680px, 92vw);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 0;
+        background: #fff;
+        color: #0f172a;
+        font-size: 16px;
+      }
+
+      .dlg-bd {
+        padding: 14px 16px;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(2px);
+      }
+
+      [data-theme="dark"] dialog {
+        background: rgba(20, 26, 44, 0.96);
+        color: #e5e7eb;
+        border-color: rgba(148, 163, 184, 0.35);
+        font-size: 16px;
+      }
+
+      .dlg-hd {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--padding-lg);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .dlg-bd {
+        padding: var(--padding-lg);
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .dlg-ft {
+        display: flex;
+        justify-content: center;
+        gap: var(--gap-md);
+        padding: var(--padding-lg);
+        border-top: 1px solid var(--border);
+      }
+
+      #btnFav.is-favorite {
+        background-image: none !important;
+        color: white !important;
+        background-color: rgb(253, 171, 217) !important;
+        box-shadow:
+          0 6px 16px rgba(214, 122, 174, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+        transition: all 0.2s ease;
+      }
+
+      [data-theme="dark"] #btnFav.is-favorite {
+        background-color: rgba(240, 236, 249, 0.3) !important;
+        border-color: rgba(218, 213, 232, 0.8) !important;
+        color: #e5e7eb !important;
+        box-shadow:
+          0 4px 12px rgba(139, 92, 246, 0.35),
+          0 1px 0 rgba(255, 255, 255, 0.1) inset !important;
+        background-image: none !important;
+        transition: all 0.2s ease;
+      }
+
+      #favList .row,
+      #myQuoteList .row {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: var(--gap-md);
+        padding: 10px 0;
+        border-bottom: 1px dashed var(--border);
+      }
+
+      #favList .row > div:nth-child(2),
+      #myQuoteList .row > div:nth-child(2) {
+        flex: 1;
+        min-width: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
+      }
+
+      #favList .row:last-child,
+      #myQuoteList .row:last-child {
+        border-bottom: 0;
+      }
+
+      #favList .row-actions,
+      #myQuoteList .row-actions {
+        display: flex;
+        gap: var(--spacing-sm);
+        flex-shrink: 0;
+        margin-left: auto;
+      }
+
+      #favList .row.dragging {
+        opacity: 0.5;
+        background-color: rgba(148, 163, 184, 0.2);
+      }
+
+      dialog textarea,
+      dialog input[type="text"] {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: var(--card-bg);
+        color: var(--text);
+        font-family: inherit;
+        resize: vertical;
+      }
+
+      [data-theme="dark"] dialog textarea,
+      [data-theme="dark"] dialog input[type="text"] {
+        background: rgba(24, 32, 56, 0.85);
+        border-color: rgba(148, 163, 184, 0.45);
+      }
+
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(4px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      #starry-inset {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: none;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      @keyframes starTwinkle {
+        0%,
+        100% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0.4;
+        }
+      }
+
+      @keyframes starDrift {
+        from {
+          transform: translate3d(0, 0, 0);
+        }
+
+        to {
+          transform: translate3d(-3%, -5%, 0);
+        }
+      }
+
+      .install-banner {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        gap: var(--gap-sm);
+        padding: 20px 18px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: var(--shadow);
+        color: var(--text);
+      }
+      .install-banner.show {
+        display: flex;
+      }
+      .install-banner__content {
+        display: flex;
+        align-items: center;
+        gap: var(--gap-sm);
+        flex: 1;
+        min-width: 0;
+      }
+      .install-banner__icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+      }
+      .install-banner__text {
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .install-banner__actions {
+        display: flex;
+        gap: var(--gap-sm);
+        flex-shrink: 0;
+      }
+      .install-banner__actions .pbtn {
+        padding: 10px 14px;
+        min-width: 0 !important;
+        width: auto !important;
+        max-width: none !important;
+        font-size: 16px;
+        flex: 0 0 auto;
+        min-height: 40px;
+      }
+      [data-theme="dark"] .install-banner {
+        background: rgba(15, 18, 32, 0.95);
+        color: #e5e7eb;
+        border-color: rgba(148, 163, 184, 0.35);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .star-twinkle,
+        .star-drift {
+          animation: none !important;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        :root {
+          --ui-bg: url("bg-desktop.webp");
+        }
+        .app {
+          padding: 40px;
+        }
+      }
+
+      @media (min-width: 900px) {
+        .bar {
+          padding-left: 34px !important;
+          width: 100% !important;
+        }
+      }
+
+      @media (max-width: 900px) {
+        :root {
+          --ui-bg: url("bg-mobile.webp");
+        }
+      }
+
+      @media (min-width: 769px) {
+        .hbtn {
+          width: 44px !important;
+          height: 44px !important;
+          font-size: 26px !important;
+        }
+        .bar {
+          padding-left: 20px;
+          padding-right: 26px;
+          box-sizing: border-box;
+          width: 100%;
+        }
+      }
+
+      @media (min-width: 769px) and (max-width: 900px) {
+        .brand {
+          font-size: 34px;
+          margin-left: 10px;
+        }
+        .quote {
+          font-size: clamp(18px, 3vw, 24px);
+          padding: 20px 40px;
+        }
+      }
+
+      @media (min-width: 571px) and (max-width: 768px) {
+        .tools {
+          grid-template-columns: repeat(3, 1fr) !important;
+          gap: var(--gap-md);
+        }
+        .tools > .pbtn {
+          width: auto !important;
+          flex-grow: 1 !important;
+          margin: 0 !important;
+          min-width: 140px;
+        }
+        .bar {
+          padding-left: 34px;
+          padding-right: 26px;
+          box-sizing: border-box;
+          width: 100%;
+        }
+      }
+
+      @media (min-width: 571px) {
+        .tools {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: var(--gap-md);
+        }
+        .tools > .pbtn {
+          flex: 0 0 180px !important;
+          width: 180px !important;
+          max-width: 180px !important;
+          min-width: 180px !important;
+          flex-grow: 0 !important;
+        }
+      }
+
+      @media (min-width: 481px) and (max-width: 570px) {
+        .tools {
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: var(--spacing-sm);
+        }
+        .brand {
+          font-size: 30px;
+        }
+        .bar {
+          padding-left: 34px;
+          padding-right: 26px;
+          box-sizing: border-box;
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 570px) {
+        dialog {
+          width: 100vw !important;
+          height: 100vh !important;
+          max-width: 100% !important;
+          margin: 0 !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
+          font-size: 15px !important;
+        }
+        #favList .row,
+        #myQuoteList .row {
+          font-size: 14px !important;
+          flex-wrap: nowrap;
+          gap: var(--spacing-sm);
+        }
+        #favList .row > div:nth-child(2),
+        #myQuoteList .row > div:nth-child(2) {
+          flex: 1;
+          min-width: 0;
+          text-align: left;
+        }
+        #favList .row-actions,
+        #myQuoteList .row-actions {
+          flex-shrink: 0;
+          justify-content: flex-end;
+        }
+        #favList .row-actions .pbtn,
+        #myQuoteList .row-actions .pbtn {
+          flex: 0 0 auto !important;
+          min-width: 58px !important;
+          max-width: 58px !important;
+          width: 58px !important;
+          padding: 8px 4px !important;
+          min-height: 32px !important;
+          font-size: 9px !important;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .pbtn {
+          font-size: 13px !important;
+        }
+        .dlg-bd {
+          max-height: calc(100vh - 120px) !important;
+          overflow-y: auto !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: var(--spacing-sm) var(--spacing-xs);
+        }
+        .app {
+          width: calc(100% - var(--spacing-sm));
+          max-width: none;
+          min-height: calc(100vh - var(--gap-lg));
+          border-radius: 16px;
+        }
+        .content {
+          padding: var(--spacing-md);
+        }
+        .tools {
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: var(--spacing-sm);
+          max-width: 100%;
+          margin: 0 auto;
+        }
+        .tools > .pbtn {
+          width: auto !important;
+          max-width: none !important;
+          margin: 0 !important;
+          font-size: 13px !important;
+          padding: 10px var(--gap-md);
+        }
+        .brand {
+          font-size: 30px;
+          margin-bottom: 0;
+        }
+        .right {
+          gap: 6px;
+          margin-left: auto;
+        }
+        .quote {
+          padding: 28px 80px !important;
+          min-height: 160px;
+        }
+        .nav-arrow {
+          width: 38px;
+          height: 38px;
+        }
+        .bar {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: flex-start;
+          padding: 0 var(--spacing-2xl);
+          margin-top: var(--gap-lg);
+        }
+        .pbtn {
+          flex-basis: calc(50% - 5px);
+          min-width: 130px !important;
+          padding: 10px 14px;
+          text-align: center;
+        }
+      }
+
+      @media (min-width: 371px) and (max-width: 480px) {
+        .tools {
+          gap: var(--spacing-md) !important;
+          row-gap: var(--spacing-lg) !important;
+          margin-top: var(--spacing-xl) !important;
+        }
+        .tools > .pbtn {
+          min-width: 140px !important;
+        }
+      }
+
+      @media (max-width: 380px) {
+        body {
+          padding: var(--spacing-xs);
+        }
+        .app {
+          padding: var(--spacing-sm);
+          width: calc(100% - var(--spacing-xs));
+        }
+        .content {
+          padding: var(--spacing-2xl) var(--spacing-sm) var(--spacing-xs) var(--spacing-sm);
+        }
+        .quote {
+          padding: var(--spacing-xl) var(--spacing-lg) !important;
+          font-size: 1.1em !important;
+        }
+        .tools {
+          margin: var(--spacing-lg) auto 0 auto;
+          padding: 0;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+          gap: var(--gap-md);
+          row-gap: var(--gap-md);
+        }
+        .tools > .pbtn {
+          padding: var(--padding-md);
+          font-size: 12px;
+          min-width: 0;
+          flex: 1 1 calc(50% - var(--spacing-xs));
+          min-height: 40px;
+        }
+        .bar {
+          padding: calc(var(--spacing-2xl) + 8px) var(--spacing-lg) var(--spacing-md) var(--spacing-lg) !important;
+          margin-top: 0;
+        }
+        .quote {
+          padding: var(--spacing-md) 32px !important;
+          font-size: 1.1em !important;
+          min-height: 100px;
+          box-sizing: border-box;
+          line-height: 1.4;
+          width: 100%;
+          max-width: 100%;
+        }
+        .quote #quoteText {
+          padding: 0;
+          margin: 0;
+          width: 100%;
+          box-sizing: border-box;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+        }
+        .nav-arrow {
+          width: 28px;
+          height: 28px;
+          font-size: 14px;
+        }
+        .nav-prev {
+          left: 2px;
+        }
+        .nav-next {
+          right: 2px;
+        }
+      }
+
+      @media (max-width: 340px) {
+        .bar {
+          padding: calc(var(--spacing-2xl) + 12px) 25px var(--spacing-md) 25px !important;
+        }
+        .content {
+          padding-top: calc(var(--spacing-2xl) + 8px) !important;
+        }
+      }
+
+      @media (max-width: 320px) {
+        .bar {
+          padding: calc(var(--spacing-2xl) + 16px) 10px var(--spacing-md) 10px !important;
+          margin-bottom: var(--spacing-lg);
+        }
+        .content {
+          padding: calc(var(--spacing-2xl) + 12px) 10px 26px 10px !important;
+        }
+        .quote {
+          font-size: 1em;
+        }
+        .tools {
+          grid-template-columns: 1fr !important;
+          margin-top: var(--spacing-xl) !important;
+        }
+        .pbtn {
+          flex-basis: 100%;
+          min-width: 100%;
+          width: 100%;
+        }
+        .hbtn {
+          font-size: 24px !important;
+        }
+        .hbtn svg {
+          width: 20px !important;
+          height: 20px !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app" role="application" aria-label="Affirmations App">
+      <div id="starry-inset" aria-hidden="true"></div>
+
+      <div class="bar">
+        <div class="brand" aria-label="Brand">Affirmations</div>
+        <div class="right">
+          <button id="btnTheme" class="hbtn" aria-pressed="false">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="22px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="currentColor"
+            >
+              <path
+                d="M396-396q-32-32-58.5-67T289-537q-5 14-6.5 28.5T281-480q0 83 58 141t141 58q14 0 28.5-2t28.5-6q-39-22-74-48.5T396-396Zm57-56q51 51 114 87.5T702-308q-40 51-98 79.5T481-200q-117 0-198.5-81.5T201-480q0-65 28.5-123t79.5-98q20 72 56.5 135T453-452Zm290 72q-20-5-39.5-11T665-405q8-18 11.5-36.5T680-480q0-83-58.5-141.5T480-680q-20 0-38.5 3.5T405-665q-8-19-13.5-38T381-742q24-9 49-13.5t51-4.5q117 0 198.5 81.5T761-480q0 26-4.5 51T743-380ZM440-840v-120h80v120h-80Zm0 840v-120h80V0h-80Zm323-706-57-57 85-84 57 56-85 85ZM169-113l-57-56 85-85 57 57-85 84Zm671-327v-80h120v80H840ZM0-440v-80h120v80H0Zm791 328-85-85 57-57 84 85-56 57ZM197-706l-84-85 56-57 85 85-57 57Zm199 310Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="content">
+        <div id="quote" class="quote" aria-live="polite">
+          <span id="quoteText">Loading…</span>
+          <button
+            id="navPrev"
+            class="nav-arrow nav-prev"
+            title="Previous"
+            aria-label="Previous"
+          >
+            ◀
+          </button>
+          <button
+            id="navNext"
+            class="nav-arrow nav-next"
+            title="Next"
+            aria-label="Next"
+          >
+            ▶
+          </button>
+        </div>
+
+        <div class="tools">
+          <button id="btnFav" class="pbtn fav">Favorite</button>
+          <button id="btnShare" class="pbtn share">Share</button>
+          <button id="btnCopy" class="pbtn copy">Copy</button>
+          <button id="btnPrint" class="pbtn print">Print / PDF</button>
+          <button id="btnAdd" class="pbtn add">+ Quote</button>
+          <button id="btnViewFavs" class="pbtn favs">My Favorites</button>
+          <button id="btnViewMyQuotes" class="pbtn myquotes">My Quotes</button>
+          <button id="btnResetAll" class="pbtn reset">Clear all</button>
+        </div>
+
+        <div
+          class="alert-overlay"
+          id="clearAlert"
+          role="alert"
+          aria-live="polite"
+        >
+          <div class="alert-box">
+            <h4>Clear All Data?</h4>
+            <p class="alert-msg">
+              This will permanently delete all your custom affirmations and
+              favorites.
+            </p>
+            <div class="alert-actions">
+              <button id="btnClearCancel" class="pbtn small">Cancel</button>
+              <button id="btnClearConfirm" class="pbtn primary-danger small">
+                Yes, clear
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="chipbar">
+          <div id="chipCount" class="chip">0 quotes</div>
+          <div id="chipFavs" class="chip">0 favorites</div>
+          <div id="chipDeck" class="chip">1/1</div>
+        </div>
+      </div>
+    </div>
+
+    <dialog id="dlgAdd">
+      <form method="dialog">
+        <div class="dlg-hd">
+          <span>Add your own affirmation</span>
+          <button class="pbtn small">Close</button>
+        </div>
+        <div class="dlg-bd">
+          <textarea
+            id="txtAff"
+            placeholder="Type your affirmation…"
+            rows="3"
+            maxlength="200"
+          ></textarea>
+          <div
+            id="addErr"
+            style="margin-top: 8px; display: none; color: var(--danger)"
+          >
+            Please enter 3–200 characters.
+          </div>
+        </div>
+        <div class="dlg-ft">
+          <button class="pbtn small">Cancel</button>
+          <button id="btnAddSave" class="pbtn primary small">Add</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="dlgFavs">
+      <div class="dlg-hd">
+        <span>Your favorites</span>
+        <button class="pbtn small" onclick="this.closest('dialog').close()">
+          Close
+        </button>
+      </div>
+      <div class="dlg-bd">
+        <div id="favList">(none)</div>
+      </div>
+      <div class="dlg-ft">
+        <button id="btnFavPrint" class="pbtn small">Print</button>
+        <button
+          class="pbtn primary small"
+          onclick="this.closest('dialog').close()"
+        >
+          Done
+        </button>
+      </div>
+    </dialog>
+
+    <dialog id="dlgMyQuotes">
+      <div class="dlg-hd">
+        <span>Your Custom Quotes</span>
+        <button class="pbtn small" onclick="this.closest('dialog').close()">
+          Close
+        </button>
+      </div>
+      <div class="dlg-bd">
+        <div id="myQuoteList">
+          <p style="color: var(--muted); text-align: center">
+            You haven't added any quotes yet.
+          </p>
+        </div>
+      </div>
+      <div class="dlg-ft">
+        <button id="btnAddFromMyList" class="pbtn small">+ Add New</button>
+        <button id="btnMyQuotesPrint" class="pbtn small">Print</button>
+        <button
+          class="pbtn primary small"
+          onclick="this.closest('dialog').close()"
+        >
+          Done
+        </button>
+      </div>
+    </dialog>
+
+    <dialog id="dlgEdit">
+      <form method="dialog">
+        <div class="dlg-hd">
+          <span>Edit your affirmation</span>
+          <button class="pbtn small">Close</button>
+        </div>
+        <div class="dlg-bd">
+          <textarea
+            id="txtEditAff"
+            placeholder="Edit your affirmation…"
+            rows="3"
+            maxlength="200"
+          ></textarea>
+          <div
+            id="editErr"
+            style="margin-top: 8px; display: none; color: var(--danger)"
+          >
+            Please enter 3–200 characters.
+          </div>
+        </div>
+        <div class="dlg-ft">
+          <button
+            type="button"
+            class="pbtn small"
+            onclick="
+              document.getElementById('dlgEdit').close();
+              document.getElementById('dlgMyQuotes').showModal();
+            "
+          >
+            Cancel
+          </button>
+          <button id="btnEditSave" class="pbtn primary small">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="dlgDeleteAlert">
+      <div class="dlg-hd">
+        <h4>Delete Quote?</h4>
+      </div>
+      <div class="dlg-bd">
+        <p class="alert-msg" style="text-align: center">
+          Are you sure you want to permanently delete this custom affirmation?
+        </p>
+      </div>
+      <div class="dlg-ft">
+        <button id="btnDeleteCancel" class="pbtn small">Cancel</button>
+        <button id="btnDeleteConfirm" class="pbtn primary-danger small">
+          Yes, delete
+        </button>
+      </div>
+    </dialog>
+    <div id="installBanner" class="install-banner" aria-hidden="true">
+      <div class="install-banner__content">
+        <img src="icon_48.png" alt="" class="install-banner__icon" />
+        <div class="install-banner__text">Install the app?</div>
+      </div>
+      <div class="install-banner__actions">
+        <button id="btnInstallPwa" class="pbtn small">Install</button>
+        <button id="btnInstallDismiss" class="pbtn small">Dismiss</button>
+      </div>
+    </div>
+    <script>
+      "use strict";
+
+      const LOGO_URL = "";
+      const PRINT_TITLE_DEFAULT = "My Affirmations";
+      const PRINT_DECOR = "flowers";
+      const CORNER_DECOR = "star";
+
+      const KEYS = {
+        custom: "affirmations_custom_v1",
+        favs: "affirmations_favs_v1",
+        index: "affirmations_index_v1",
+      };
+      const BASE_QUOTES = [
+        "I trust the timing of my life.",
+        "I choose peace over worry.",
+        "Every day brings me new opportunities.",
+        "I am stronger than my doubts.",
+        "I release what I cannot control.",
+        "My mind is calm, my heart is steady.",
+        "I welcome change as a path to growth.",
+        "I am enough exactly as I am.",
+        "Hope is always available to me.",
+        "I create space for joy in my life.",
+        "My energy attracts positivity.",
+        "I can handle challenges with grace.",
+        "I let go of yesterday and embrace today.",
+        "My presence is valuable and needed.",
+        "I allow myself to rest and recharge.",
+        "I am proud of how far I’ve come.",
+        "I focus on progress, not perfection.",
+        "I choose thoughts that support me.",
+        "My future is filled with possibility.",
+        "I am grateful for this moment.",
+        "Calm is my natural state.",
+        "I am safe, I am grounded, I am well.",
+        "Each breath brings me peace.",
+        "I rise above negativity with ease.",
+        "I choose kindness for myself and others.",
+        "I believe in my own resilience.",
+        "I open myself to abundance and flow.",
+        "My inner light guides me forward.",
+        "I am free to create the life I desire.",
+        "I release fear and invite trust.",
+        "My challenges help me grow wiser.",
+        "I treat myself with compassion.",
+        "I welcome calm into my day.",
+        "My potential has no limits.",
+        "I radiate confidence and ease.",
+        "I choose patience and understanding.",
+        "Every step I take matters.",
+        "I find beauty in the present moment.",
+        "I allow myself to shine.",
+        "My journey is unfolding perfectly.",
+        "I am worthy of happiness and peace.",
+        "I let my actions be guided by love.",
+        "I am becoming the best version of me.",
+        "My thoughts create my reality, and I choose hope.",
+        "I am grateful for simple joys today.",
+        "I breathe in courage, I breathe out doubt.",
+        "I honor my needs and my boundaries.",
+        "I welcome calm mornings and peaceful nights.",
+        "I trust myself to make good choices.",
+        "I am open to joy, healing, and growth.",
+        "I am worthy of love and respect.",
+        "Every day, in every way, I am becoming better.",
+        "I choose to focus on what I can control.",
+        "I trust the process of life.",
+        "I release all negative thoughts with ease.",
+        "Joy flows freely through me.",
+        "Every cell in my body is healthy and vibrant.",
+        "I grow a little more every day.",
+        "I allow peace to fill the spaces within me.",
+        "I trust my inner wisdom to guide me.",
+        "I choose clarity over confusion.",
+        "I welcome gentle progress into my life.",
+        "I nourish my mind with supportive thoughts.",
+        "I give myself permission to begin again.",
+        "I am learning to embrace whatever comes.",
+        "I find calm even in small moments.",
+        "I release pressure and embrace ease.",
+        "I am aligned with what is meant for me.",
+        "I breathe in peace and breathe out tension.",
+        "I choose to soften instead of stress.",
+        "I welcome new beginnings with an open heart.",
+        "I show up for myself every day.",
+        "I trust that I am exactly where I need to be.",
+        "I focus my energy on what feels right for me.",
+        "I invite softness into my thoughts.",
+        "I am worthy of slow, steady growth.",
+        "I let go of what drains me and embrace what uplifts me.",
+        "I trust myself to handle whatever arrives.",
+        "I move through today with grace and patience.",
+        "I choose peace even when life feels uncertain.",
+        "I open my heart to calm and clarity.",
+        "I honor the pace of my own journey.",
+        "I let my inner voice be kind and supportive.",
+        "I welcome moments of stillness.",
+        "I am becoming more confident each day.",
+        "I let my mind rest without guilt.",
+        "I trust life to unfold in my favor.",
+        "I am allowed to take up space.",
+        "I breathe deeply and trust the present moment.",
+        "I choose thoughts that nourish my well-being.",
+        "I stand strong in who I am.",
+        "I replace fear with gentle courage.",
+        "I grow through what I experience.",
+        "I give myself room to heal and rise.",
+        "I welcome calm energy into my body.",
+        "I trust myself more every day.",
+        "I invite positivity to flow toward me.",
+        "Irelease tension and open myself to peace.",
+        "I am steady, capable, and resilient.",
+        "I am guided by calm, clarity, and purpose.",
+      ];
+
+      const load = (k, f) => {
+        try {
+          return JSON.parse(localStorage.getItem(k) || "null") ?? f;
+        } catch {
+          return f;
+        }
+      };
+
+      const saveAll = () => {
+        localStorage.setItem(KEYS.custom, JSON.stringify(custom));
+        localStorage.setItem(KEYS.favs, JSON.stringify(favs));
+        localStorage.setItem(KEYS.index, String(index));
+      };
+
+      let custom = load(KEYS.custom, []);
+      let favs = load(KEYS.favs, []);
+      let deck = [];
+      let index = 0;
+      let currentText = "";
+      let editingQuote = null;
+      let editingIndex = -1;
+      let quoteToDelete = null;
+
+      const fullList = () => {
+        const s = new Set(),
+          o = [];
+        for (const q of BASE_QUOTES.concat(custom)) {
+          const t = (q || "").trim(),
+            k = t.toLowerCase();
+          if (t && !s.has(k)) {
+            s.add(k);
+            o.push(t);
+          }
+        }
+        return o;
+      };
+      const buildDeck = () => fullList();
+
+      const updateChips = () => {
+        document.getElementById("chipCount").textContent =
+          fullList().length + " quotes";
+        document.getElementById("chipFavs").textContent =
+          favs.length + " favorites";
+
+        const deckLength = deck.length;
+        const deckText =
+          deckLength === 0 ? "0/0" : index + 1 + "/" + deckLength;
+        document.getElementById("chipDeck").textContent = deckText;
+
+        const chipCustom = document.getElementById("chipCustom");
+        if (chipCustom) {
+          chipCustom.textContent = custom.length + " custom";
+        }
+      };
+
+      const setQuote = (text) => {
+        currentText = text;
+        document.getElementById("quoteText").textContent = text;
+      };
+      const isFav = (q) => favs.includes(q);
+
+      function show(i) {
+        deck = buildDeck();
+        if (!deck.length) {
+          setQuote(
+            "Please add your first affirmation using the + Quote button.",
+          );
+          syncFavUI();
+          updateChips();
+          return;
+        }
+        index = ((i % deck.length) + deck.length) % deck.length;
+        setQuote(deck[index]);
+        syncFavUI();
+        updateChips();
+        saveAll();
+      }
+      const next = () => show(index + 1);
+      const prev = () => show(index - 1);
+
+      function toggleFav() {
+        const q = deck[index];
+        if (!q) return;
+        if (isFav(q)) favs = favs.filter((x) => x !== q);
+        else favs.push(q);
+        saveAll();
+        syncFavUI();
+        updateChips();
+      }
+
+      function syncFavUI() {
+        const btn = document.getElementById("btnFav");
+        const disabled = deck.length === 0;
+        if (btn) {
+          btn.disabled = disabled;
+          if (!disabled) {
+            const f = isFav(deck[index]);
+            btn.classList.toggle("is-favorite", f);
+            btn.setAttribute("aria-pressed", String(f));
+          } else {
+            btn.classList.remove("primary");
+            btn.setAttribute("aria-pressed", "false");
+          }
+        }
+      }
+
+      function renderFavs() {
+        const list = document.getElementById("favList");
+        const arr = favs;
+
+        if (!arr.length) {
+          list.textContent = "(none)";
+          return;
+        }
+
+        list.textContent = "";
+
+        for (const q of arr) {
+          const row = document.createElement("div");
+          row.className = "row";
+          row.dataset.quote = q;
+
+          const handle = document.createElement("div");
+          handle.className = "drag-handle";
+          handle.innerHTML = "⋮⋮";
+          handle.title = "Drag to reorder";
+          row.appendChild(handle);
+
+          const text = document.createElement("div");
+          text.textContent = q;
+          row.appendChild(text);
+
+          const actions = document.createElement("div");
+          actions.className = "row-actions";
+
+          const showBtn = document.createElement("button");
+          showBtn.className = "pbtn small";
+          showBtn.textContent = "Show";
+          showBtn.addEventListener("click", () => {
+            const i = deck.findIndex((x) => x === q);
+            if (i > -1) show(i);
+            document.getElementById("dlgFavs").close();
+          });
+
+          const delBtn = document.createElement("button");
+          delBtn.className = "pbtn small primary-danger";
+          delBtn.textContent = "Remove";
+          delBtn.addEventListener("click", () => {
+            favs = favs.filter((x) => x !== q);
+            saveAll();
+            renderFavs();
+            updateChips();
+            if (currentText === q) {
+              syncFavUI();
+            }
+          });
+
+          actions.appendChild(showBtn);
+          actions.appendChild(delBtn);
+          row.appendChild(actions);
+          list.appendChild(row);
+        }
+
+        enableDragAndDrop("favList");
+      }
+
+      const dragState = new Map();
+
+      function enableDragAndDrop(listId) {
+        const list = document.getElementById(listId);
+        if (!list) return;
+        
+        let draggedItem = null;
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        let isDragging = false;
+        let animationFrameId = null;
+
+        const startDrag = (e, row) => {
+          draggedItem = row;
+          isDragging = true;
+          draggedItem.classList.add("dragging");
+          
+          if (window.navigator && window.navigator.vibrate) {
+            try {
+              window.navigator.vibrate(50);
+            } catch (err) {}
+          }
+          
+          if (e.dataTransfer) {
+            e.dataTransfer.effectAllowed = "move";
+            e.dataTransfer.setData("text/plain", "");
+          }
+          
+          document.body.style.overflowX = "hidden";
+          document.body.style.overflowY = "hidden";
+          document.body.style.touchAction = "none";
+          document.body.style.userSelect = "none";
+          document.documentElement.style.overflowX = "hidden";
+          document.documentElement.style.overflowY = "hidden";
+        };
+
+        const endDrag = () => {
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
+          
+          if (draggedItem) {
+            draggedItem.classList.remove("dragging");
+            draggedItem = null;
+          }
+          isDragging = false;
+          
+          document.body.style.overflowX = "";
+          document.body.style.overflowY = "";
+          document.body.style.touchAction = "";
+          document.body.style.userSelect = "";
+          document.documentElement.style.overflowX = "";
+          document.documentElement.style.overflowY = "";
+          
+          if (listId === "favList") {
+            updateFavsOrder();
+          }
+          if (listId === "myQuoteList") {
+            updateCustomOrder();
+          }
+        };
+
+        const updateDragPosition = (y) => {
+          if (!draggedItem) return;
+          
+          const draggableElements = [
+            ...list.querySelectorAll(".row:not(.dragging)"),
+          ];
+          
+          if (draggableElements.length === 0) return;
+          
+          let nextSibling = null;
+          
+          for (const child of draggableElements) {
+            const box = child.getBoundingClientRect();
+            const boxCenter = box.top + box.height / 2;
+            
+            if (y < boxCenter) {
+              nextSibling = child;
+              break;
+            }
+          }
+          
+          if (nextSibling == null) {
+            const lastElement = draggableElements[draggableElements.length - 1];
+            if (lastElement && lastElement.nextSibling !== draggedItem) {
+              list.appendChild(draggedItem);
+            } else if (draggableElements.length === 0 || list.lastChild !== draggedItem) {
+              list.appendChild(draggedItem);
+            }
+          } else {
+            if (nextSibling !== draggedItem) {
+              const currentIndex = Array.from(list.children).indexOf(draggedItem);
+              const targetIndex = Array.from(list.children).indexOf(nextSibling);
+              
+              if (currentIndex !== targetIndex) {
+                list.insertBefore(draggedItem, nextSibling);
+              }
+            }
+          }
+        };
+
+        const handleDragStart = (e) => {
+          const row = e.target.closest(".row");
+          if (!row) return;
+          
+          const actions = row.querySelector(".row-actions");
+          if (actions && actions.contains(e.target)) return;
+          
+          startDrag(e, row);
+        };
+
+        const handleDragOver = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!draggedItem) return;
+          
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+          }
+          
+          animationFrameId = requestAnimationFrame(() => {
+            updateDragPosition(e.clientY);
+          });
+        };
+
+        const handleTouchStart = (e) => {
+          const row = e.target.closest(".row");
+          if (!row) return;
+          
+          const actions = row.querySelector(".row-actions");
+          if (actions && actions.contains(e.target)) return;
+          
+          touchStartY = e.touches[0].clientY;
+          touchStartTime = Date.now();
+        };
+
+        const handleTouchMove = (e) => {
+          if (!isDragging) {
+            const touchY = e.touches[0].clientY;
+            const touchTime = Date.now();
+            const deltaY = Math.abs(touchY - touchStartY);
+            const deltaTime = touchTime - touchStartTime;
+            
+            if (deltaY > 10 && deltaTime < 500) {
+              const row = e.target.closest(".row");
+              if (row) {
+                e.preventDefault();
+                e.stopPropagation();
+                startDrag(e, row);
+              }
+            }
+            return;
+          }
+          
+          if (!draggedItem) return;
+          
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const touchY = e.touches[0].clientY;
+          
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+          }
+          
+          animationFrameId = requestAnimationFrame(() => {
+            updateDragPosition(touchY);
+          });
+        };
+
+        const handleTouchEnd = (e) => {
+          if (!isDragging) return;
+          
+          e.preventDefault();
+          e.stopPropagation();
+          endDrag();
+        };
+
+        const handleDrop = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          endDrag();
+        };
+
+        const handleDragEnd = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          endDrag();
+        };
+
+        const handleContextMenu = (e) => {
+          const row = e.target.closest(".row");
+          if (!row) return;
+          e.preventDefault();
+        };
+
+
+        const oldHandlers = dragState.get(listId);
+        if (oldHandlers) {
+          list.removeEventListener("dragover", oldHandlers.dragOver);
+          list.removeEventListener("drop", oldHandlers.drop);
+          list.removeEventListener("dragend", oldHandlers.dragEnd);
+          list.removeEventListener("touchstart", oldHandlers.touchStart);
+          list.removeEventListener("touchmove", oldHandlers.touchMove);
+          list.removeEventListener("touchend", oldHandlers.touchEnd);
+          list.querySelectorAll(".row").forEach((row) => {
+            row.removeEventListener("dragstart", oldHandlers.dragStart);
+            row.removeEventListener("contextmenu", oldHandlers.contextMenu);
+          });
+        }
+
+        const handlers = {
+          dragStart: handleDragStart,
+          dragOver: handleDragOver,
+          drop: handleDrop,
+          dragEnd: handleDragEnd,
+          contextMenu: handleContextMenu,
+          touchStart: handleTouchStart,
+          touchMove: handleTouchMove,
+          touchEnd: handleTouchEnd
+        };
+        dragState.set(listId, handlers);
+
+        list.querySelectorAll(".row").forEach((row) => {
+          row.setAttribute("draggable", "true");
+          row.addEventListener("dragstart", handleDragStart);
+          row.addEventListener("contextmenu", handleContextMenu);
+        });
+
+        list.addEventListener("touchstart", handleTouchStart, { passive: false });
+        list.addEventListener("touchmove", handleTouchMove, { passive: false });
+        list.addEventListener("touchend", handleTouchEnd, { passive: false });
+
+        list.addEventListener("dragover", handleDragOver);
+        list.addEventListener("drop", handleDrop);
+        list.addEventListener("dragend", handleDragEnd);
+
+        function updateFavsOrder() {
+          const list = document.getElementById("favList");
+          if (!list) return;
+          const rows = [...list.querySelectorAll(".row")];
+          const newOrder = rows.map((row) => row.dataset.quote).filter(Boolean);
+          if (newOrder.length > 0 && JSON.stringify(favs) !== JSON.stringify(newOrder)) {
+            favs = newOrder;
+            saveAll();
+          }
+        }
+        function updateCustomOrder() {
+          const list = document.getElementById("myQuoteList");
+          if (!list) return;
+          const rows = [...list.querySelectorAll(".row")];
+          const newOrder = rows.map((row) => row.dataset.quote).filter(Boolean);
+          if (newOrder.length > 0 && JSON.stringify(custom) !== JSON.stringify(newOrder)) {
+            custom = newOrder;
+            saveAll();
+          }
+        }
+      }
+
+      function renderCustomAffs() {
+        const list = document.getElementById("myQuoteList");
+        const arr = custom;
+
+        if (!arr.length) {
+          list.innerHTML = `<p style="color: var(--muted); text-align: center">You haven't added any quotes yet.</p>`;
+          return;
+        }
+
+        list.textContent = "";
+
+        arr.forEach((q, index) => {
+          const row = document.createElement("div");
+          row.className = "row";
+          row.dataset.quote = q;
+
+          const handle = document.createElement("div");
+          handle.className = "drag-handle";
+          handle.innerHTML = "⋮⋮";
+          handle.title = "Drag to reorder";
+          row.appendChild(handle);
+
+          const text = document.createElement("div");
+          text.textContent = q;
+          row.appendChild(text);
+
+          const actions = document.createElement("div");
+          actions.className = "row-actions";
+
+          const editBtn = document.createElement("button");
+          editBtn.className = "pbtn small";
+          editBtn.textContent = "Edit";
+          editBtn.addEventListener("click", () => editCustomAff(q, index));
+
+          const delBtn = document.createElement("button");
+          delBtn.className = "pbtn small primary-danger";
+          delBtn.textContent = "Delete";
+          delBtn.addEventListener("click", () => deleteCustomAff(q));
+
+          actions.appendChild(editBtn);
+          actions.appendChild(delBtn);
+          row.appendChild(actions);
+          list.appendChild(row);
+        });
+
+        enableDragAndDrop("myQuoteList");
+      }
+      const dragStyle = document.createElement("style");
+      dragStyle.textContent = `
+        .drag-handle {
+          user-select: none;
+          font-size: 1.2em;
+          line-height: 1;
+          margin-right: 8px;
+          padding: 4px 2px;
+          color: var(--muted);
+          display: inline-flex;
+          align-items: center;
+          justify-content: flex-start;
+          cursor: grab;
+          min-width: 24px;
+          flex-shrink: 0;
+          touch-action: none;
+          -webkit-touch-callout: none;
+        }
+        .drag-handle:active {
+          cursor: grabbing;
+        }
+        .row.dragging {
+          opacity: 0.5;
+        }
+        .row {
+          display: flex;
+          align-items: center;
+          gap: var(--gap-md);
+          cursor: grab;
+          touch-action: none;
+          -webkit-user-select: none;
+          user-select: none;
+        }
+        .row:active {
+          cursor: grabbing;
+        }
+        .row * {
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          user-select: none;
+        }
+        .row > .drag-handle {
+          flex-shrink: 0;
+          pointer-events: none;
+        }
+        .row > div:nth-child(2) {
+          flex: 1 1 auto;
+          text-align: left;
+          min-width: 0;
+          pointer-events: none;
+        }
+        .row .row-actions {
+          pointer-events: auto;
+        }
+        .row .row-actions button {
+          pointer-events: auto;
+        }
+      `;
+      document.head.appendChild(dragStyle);
+      function deleteCustomAff(q) {
+        quoteToDelete = q;
+
+        const dlgMyQuotes = document.getElementById("dlgMyQuotes");
+        if (dlgMyQuotes) dlgMyQuotes.close();
+
+        const dlgDeleteAlert = document.getElementById("dlgDeleteAlert");
+        if (dlgDeleteAlert) dlgDeleteAlert.showModal();
+      }
+
+      function confirmDelete() {
+        const q = quoteToDelete;
+        if (!q) return;
+
+        const i = custom.indexOf(q);
+        if (i > -1) custom.splice(i, 1);
+
+        favs = favs.filter((x) => x !== q);
+
+        saveAll();
+
+        document.getElementById("dlgDeleteAlert").close();
+
+        renderCustomAffs();
+        document.getElementById("dlgMyQuotes").showModal();
+
+        show(index);
+        toast("Deleted");
+
+        quoteToDelete = null;
+      }
+
+      function cancelDelete() {
+        document.getElementById("dlgDeleteAlert").close();
+        document.getElementById("dlgMyQuotes").showModal();
+        quoteToDelete = null;
+      }
+
+      function editCustomAff(q, index) {
+        editingQuote = q;
+        editingIndex = index;
+
+        const dlgEdit = document.getElementById("dlgEdit");
+        const txtEdit = document.getElementById("txtEditAff");
+
+        txtEdit.value = q;
+        document.getElementById("editErr").style.display = "none";
+
+        const dlgMyQuotes = document.getElementById("dlgMyQuotes");
+        if (dlgMyQuotes) dlgMyQuotes.close();
+
+        dlgEdit.showModal();
+      }
+
+      function saveEdit() {
+        const txtEdit = document.getElementById("txtEditAff");
+        const editErr = document.getElementById("editErr");
+        const newText = (txtEdit.value || "").trim();
+        const oldText = editingQuote;
+
+        if (newText.length < 3 || newText.length > 200) {
+          editErr.style.display = "block";
+          return;
+        }
+
+        custom[editingIndex] = newText;
+
+        favs = favs.map((f) => (f === oldText ? newText : f));
+        deck = buildDeck();
+        index = deck.indexOf(newText);
+
+        saveAll();
+        document.getElementById("dlgEdit").close();
+        renderCustomAffs();
+        if (currentText === oldText) {
+          setQuote(newText);
+        }
+        toast("Saved");
+        editingQuote = null;
+        editingIndex = -1;
+        document.getElementById("dlgMyQuotes").showModal();
+      }
+
+      function addAff() {
+        const inp = document.getElementById("txtAff");
+        const err = document.getElementById("addErr");
+        const t = (inp.value || "").trim();
+        if (t.length < 3 || t.length > 200) {
+          err.style.display = "block";
+          return;
+        }
+        custom.push(t);
+        saveAll();
+
+        show(fullList().indexOf(t));
+
+        document.getElementById("dlgAdd").close();
+        toast("Added");
+
+        renderCustomAffs();
+        document.getElementById("dlgMyQuotes").showModal();
+      }
+
+
+      function toast(msg) {
+        const d = document.createElement("div");
+        d.textContent = msg;
+        d.className = "custom-toast";
+        document.body.appendChild(d);
+        setTimeout(() => d.remove(), 2000);
+      }
+      if (!document.getElementById("custom-toast-style")) {
+        const style = document.createElement("style");
+        style.id = "custom-toast-style";
+        style.textContent = `.custom-toast {
+          position: fixed;
+          bottom: 32px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: var(--primary, #2d2d2d);
+          color: var(--on-primary, #fff);
+          border-radius: 1.5em;
+          padding: 12px 24px;
+          font-size: 1rem;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+          z-index: 9999;
+          pointer-events: none;
+          opacity: 0.97;
+          font-family: inherit;
+        }`;
+        document.head.appendChild(style);
+      }
+      async function copyText() {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(currentText);
+            toast("Copied");
+            return;
+          }
+        } catch {}
+        const tmp = document.createElement("textarea");
+        tmp.value = currentText;
+        tmp.style.position = "fixed";
+        tmp.style.opacity = "0";
+        document.body.appendChild(tmp);
+        tmp.select();
+        try {
+          document.execCommand("copy");
+          toast("Copied");
+        } catch {
+          toast("Failed to copy");
+        }
+        tmp.remove();
+      }
+      async function shareText() {
+        let shared = false;
+        try {
+          if (navigator.share) {
+            await navigator.share({ text: currentText });
+            shared = true;
+          }
+        } catch {}
+        if (!shared) {
+          showShareNotSupportedAlert();
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(currentText);
+            } else {
+              const tmp = document.createElement("textarea");
+              tmp.value = currentText;
+              tmp.style.position = "fixed";
+              tmp.style.opacity = "0";
+              document.body.appendChild(tmp);
+              tmp.select();
+              document.execCommand("copy");
+              tmp.remove();
+            }
+          } catch {}
+        }
+        function showShareNotSupportedAlert() {
+          const old = document.getElementById("shareAlertOverlay");
+          if (old) old.remove();
+          const overlay = document.createElement("div");
+          overlay.className = "alert-overlay show";
+          overlay.id = "shareAlertOverlay";
+          overlay.role = "alert";
+          overlay.innerHTML = `
+                <div class="alert-box">
+                  <h4>Sharing Not Supported</h4>
+                  <p class="alert-msg">Text copied.</p>
+                  <div class="alert-actions">
+                    <button class="pbtn small primary" id="shareAlertOkBtn">OK</button>
+                  </div>
+                </div>
+              `;
+          document.body.appendChild(overlay);
+          document.getElementById("shareAlertOkBtn").onclick = function () {
+            overlay.remove();
+          };
+        }
+      }
+      function getCornerSVG() {
+        if (CORNER_DECOR === "star")
+          return `<svg width="40" height="40" viewBox="0 0 40 40" style="opacity:0.2"><path d="M20,5 L22,15 L30,10 L25,18 L35,20 L25,22 L30,30 L22,25 L20,35 L18,25 L10,30 L15,22 L5,20 L15,18 L10,10 L18,15 Z" fill="currentColor"/></svg>`;
+        if (CORNER_DECOR === "flower")
+          return `<svg width="40" height="40" viewBox="0 0 40 40" style="opacity:0.15"><circle cx="20" cy="20" r="3" fill="currentColor"/><circle cx="20" cy="10" r="4" fill="currentColor"/><circle cx="30" cy="20" r="4" fill="currentColor"/><circle cx="20" cy="30" r="4" fill="currentColor"/><circle cx="10" cy="20" r="4" fill="currentColor"/></svg>`;
+        return "";
+      }
+      function getDecorHTML() {
+        if (PRINT_DECOR === "flowers")
+          return `<div style="text-align:center;opacity:0.2;font-size:32px">✿ ❀ ✿</div>`;
+        return "";
+      }
+      function renderPrint(quotes, title) {
+        const logo = LOGO_URL
+          ? `<img src="${LOGO_URL}" alt="Logo" style="width:40px;height:40px;border-radius:8px"/>`
+          : "";
+        const decor = getDecorHTML();
+        const items = quotes
+          .map(
+            (q) => `
+                        <div class="affirmation-box">
+                            <span class="star-left">✦</span>
+                            <div class="box-content">${q}</div>
+                            <span class="star-right">✦</span>
+                        </div>
+            `,
+          )
+          .join("");
+        const htmlStr = `<!DOCTYPE html><html><head><meta charset="utf-8"/><title>${title}</title><style>@page{margin:0.5in;}body{font-family:Georgia,serif;color:#222;padding:40px 20px;position:relative;background:linear-gradient(135deg,#faf7ff 0%,#f0f9ff 100%);}h1{font-family: Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;text-align:center;font-size:32px;color:#1e293b;font-weight:400;letter-spacing:1px;margin-bottom:10px;}.affirmations-container{max-width:650px;margin:0 auto;}.affirmation-box{position:relative;margin:24px 0;padding:28px 44px;background:linear-gradient(135deg,rgba(255,255,255,0.95),rgba(250,250,255,0.9));border:1.5px solid rgba(99,102,241,0.15);border-radius:16px;box-shadow:0 8px 24px rgba(79,70,229,0.08),inset 0 1px 0 rgba(255,255,255,0.8);min-height:80px;display:flex;align-items:center;justify-content:center;page-break-inside:avoid;}.box-content{font-style:italic;font-size:24px;line-height:1.6;color:#1e293b;text-align:center;}.star-left,.star-right{position:absolute;top:50%;transform:translateY(-50%);font-size:14px;color:#8b5cf6;opacity:0.2;}.star-left{left:12px;}.star-right{right:12px;}</style></head><body><div style="text-align:center;margin-bottom:20px">${logo}</div><h1>${title}</h1>${decor}<div class="affirmations-container">${items}</div></body></html>`;
+        try {
+          const iframe = document.createElement("iframe");
+          Object.assign(iframe.style, {
+            position: "fixed",
+            right: "0",
+            bottom: "0",
+            width: "0",
+            height: "0",
+            border: "0",
+          });
+          document.body.appendChild(iframe);
+          iframe.onload = () => {
+            try {
+              iframe.contentWindow.focus();
+              iframe.contentWindow.print();
+            } catch (e) {
+              openAndPrint(htmlStr);
+            }
+            setTimeout(() => iframe.remove(), 600);
+          };
+          iframe.srcdoc = htmlStr;
+        } catch (e) {
+          openAndPrint(htmlStr);
+        }
+      }
+      function openAndPrint(htmlStr) {
+        const newWindow = window.open("about:blank", "_blank");
+        if (newWindow) {
+          newWindow.document.write(htmlStr);
+          newWindow.document.close();
+          newWindow.onload = () => {
+            newWindow.print();
+            setTimeout(() => newWindow.close(), 600);
+          };
+        } else {
+          toast("Pop-ups must be enabled to print.");
+        }
+      }
+      const printOne = () => renderPrint([currentText], "My Affirmation");
+      const printFavorites = () => {
+        if (!favs.length) {
+          toast("No favorites to print");
+          return;
+        }
+        const title = favs.length === 1 ? "My Affirmation" : "My Affirmations";
+        renderPrint(favs, title);
+      };
+      const printCustomQuotes = () => {
+        if (!custom.length) {
+          toast("No quotes to print");
+          return;
+        }
+        const title = custom.length === 1 ? "My Quote" : "My Quotes";
+        renderPrint(custom, title);
+      };
+
+      function setDarkBackdropStyles(on) {
+        const starRoot = document.getElementById("starry-inset");
+        const app = document.querySelector(".app");
+        if (!starRoot || !app) return;
+
+        if (on) {
+          starRoot.style.background =
+            "radial-gradient(1200px 800px at 70% 10%, rgba(40,60,120,.35), transparent 60%),\
+              radial-gradient(1000px 700px at 20% 20%, rgba(120,40,160,.22), transparent 60%),\
+              linear-gradient(to bottom, #0b1020 0%, #05070f 65%, #02030a 100%)";
+          app.classList.add("no-image-bg");
+        } else {
+          starRoot.style.background = "none";
+          app.classList.remove("no-image-bg");
+        }
+      }
+      function clearStars() {
+        const starRoot = document.getElementById("starry-inset");
+        if (starRoot) starRoot.innerHTML = "";
+      }
+      function createStarsLayer(
+        count,
+        twinkleSec,
+        driftSec,
+        blurPx,
+        baseOpacity,
+      ) {
+        const layer = document.createElement("div");
+        layer.className = "star-drift";
+        layer.style.position = "absolute";
+        layer.style.inset = "0";
+        layer.style.animation = `starDrift ${driftSec}s linear infinite alternate`;
+
+        for (let i = 0; i < count; i++) {
+          const s = document.createElement("span");
+          const x = Math.random() * 100;
+          const y = Math.random() * 100;
+          const size = Math.random() * 1.5 + 0.2;
+          const op = (Math.random() * 0.5 + baseOpacity).toFixed(2);
+          const delay = (-(i % 50) / 10).toFixed(2);
+          Object.assign(s.style, {
+            position: "absolute",
+            left: x + "%",
+            top: y + "%",
+            width: size + "px",
+            height: size + "px",
+            background: "#fff",
+            borderRadius: "50%",
+            opacity: op,
+            filter: `blur(${blurPx}px)`,
+            animation: `starTwinkle ${twinkleSec}s ease-in-out ${delay}s infinite`,
+            boxShadow: `0 0 ${Math.max(1, size * 2)}px rgba(255,255,255,.6)`,
+          });
+          s.className = "star-twinkle";
+          layer.appendChild(s);
+        }
+        return layer;
+      }
+      function mountStars() {
+        const starRoot = document.getElementById("starry-inset");
+        if (!starRoot) return;
+        clearStars();
+        starRoot.appendChild(createStarsLayer(120, 10, 55, 1.2, 0.35));
+        starRoot.appendChild(createStarsLayer(80, 8, 35, 0.8, 0.45));
+        starRoot.appendChild(createStarsLayer(50, 6, 25, 0.0, 0.55));
+        const haze = document.createElement("div");
+        Object.assign(haze.style, {
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: "33%",
+          background: "linear-gradient(to top, rgba(0,0,0,.35), rgba(0,0,0,0))",
+        });
+        starRoot.appendChild(haze);
+      }
+      function syncStarBackgroundWithTheme() {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        setDarkBackdropStyles(isDark);
+        if (isDark) mountStars();
+        else clearStars();
+      }
+
+      function handleShortcuts() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const shortcut = urlParams.get("shortcut");
+
+        if (shortcut) {
+          switch (shortcut) {
+            case "favs":
+              const favsDialog = document.getElementById("dlgFavs");
+              if (favsDialog && typeof favsDialog.showModal === "function") {
+                renderFavs();
+                favsDialog.showModal();
+              }
+              break;
+            case "add":
+              const addDialog = document.getElementById("dlgAdd");
+              if (addDialog && typeof addDialog.showModal === "function") {
+                document.getElementById("txtAff").value = "";
+                document.getElementById("addErr").style.display = "none";
+                isOpenedFromMyQuotes = false;
+                addDialog.showModal();
+              }
+              break;
+            default:
+              break;
+          }
+        }
+      }
+
+      let isOpenedFromMyQuotes = false;
+      const dlgAdd = document.getElementById("dlgAdd");
+      const dlgMyQuotes = document.getElementById("dlgMyQuotes");
+
+      if (dlgAdd) {
+        const closeButtons = dlgAdd.querySelectorAll(
+          ".dlg-hd button.pbtn, .dlg-ft button:not(#btnAddSave)",
+        );
+        closeButtons.forEach((btn) => {
+          btn.addEventListener("click", () => dlgAdd.close());
+        });
+
+        dlgAdd.addEventListener("close", () => {
+          if (isOpenedFromMyQuotes) {
+            dlgMyQuotes.showModal();
+          }
+          isOpenedFromMyQuotes = false;
+        });
+      }
+
+
+      window.addEventListener("DOMContentLoaded", () => {
+        custom = load(KEYS.custom, []);
+        favs = load(KEYS.favs, []);
+        const saved = parseInt(localStorage.getItem(KEYS.index) || "0", 10);
+        deck = buildDeck();
+        index =
+          isFinite(saved) && saved >= 0 && saved < deck.length ? saved : 0;
+        show(index);
+
+
+        document.getElementById("navNext").addEventListener("click", next);
+        document.getElementById("navPrev").addEventListener("click", prev);
+        document.getElementById("btnCopy").addEventListener("click", copyText);
+        document
+          .getElementById("btnShare")
+          .addEventListener("click", shareText);
+        document.getElementById("btnPrint").addEventListener("click", printOne);
+        document.getElementById("btnFav").addEventListener("click", toggleFav);
+
+        document.getElementById("btnViewFavs").addEventListener("click", () => {
+          renderFavs();
+          document.getElementById("dlgFavs").showModal();
+        });
+
+        document
+          .getElementById("btnViewMyQuotes")
+          .addEventListener("click", () => {
+            renderCustomAffs();
+            document.getElementById("dlgMyQuotes").showModal();
+          });
+
+        const dlgAdd = document.getElementById("dlgAdd");
+        document.getElementById("btnAdd").addEventListener("click", () => {
+          document.getElementById("txtAff").value = "";
+          document.getElementById("addErr").style.display = "none";
+          isOpenedFromMyQuotes = false;
+          if (dlgAdd) dlgAdd.showModal();
+        });
+
+        document.getElementById("btnAddSave").addEventListener("click", addAff);
+
+        document
+          .getElementById("btnEditSave")
+          .addEventListener("click", saveEdit);
+
+        const dlgEdit = document.getElementById("dlgEdit");
+        if (dlgEdit) {
+          dlgEdit
+            .querySelector(".dlg-hd button.pbtn")
+            .addEventListener("click", (e) => {
+              e.preventDefault();
+              dlgEdit.close();
+              if (
+                editingQuote !== null &&
+                currentText === editingQuote &&
+                editingIndex > -1
+              ) {
+                setQuote(custom[editingIndex]);
+              }
+              document.getElementById("dlgMyQuotes").showModal();
+            });
+        }
+
+        document
+          .getElementById("btnFavPrint")
+          .addEventListener("click", printFavorites);
+
+        document
+          .getElementById("btnMyQuotesPrint")
+          .addEventListener("click", printCustomQuotes);
+
+        document
+          .getElementById("btnAddFromMyList")
+          .addEventListener("click", () => {
+            document.getElementById("dlgMyQuotes").close();
+            document.getElementById("txtAff").value = "";
+            document.getElementById("addErr").style.display = "none";
+            isOpenedFromMyQuotes = true;
+            document.getElementById("dlgAdd").showModal();
+          });
+
+        const btnTheme = document.getElementById("btnTheme");
+        btnTheme.addEventListener("click", () => {
+          const root = document.documentElement;
+          const isDark = root.getAttribute("data-theme") === "dark";
+          root.setAttribute("data-theme", isDark ? "light" : "dark");
+          btnTheme.setAttribute("aria-pressed", String(!isDark));
+          syncStarBackgroundWithTheme();
+        });
+
+        const btnResetAll = document.getElementById("btnResetAll");
+        const clearAlert = document.getElementById("clearAlert");
+        const btnClearConfirm = document.getElementById("btnClearConfirm");
+        const btnClearCancel = document.getElementById("btnClearCancel");
+
+        if (btnResetAll && clearAlert)
+          btnResetAll.addEventListener("click", () =>
+            clearAlert.classList.add("show"),
+          );
+        if (btnClearCancel)
+          btnClearCancel.addEventListener("click", () =>
+            clearAlert.classList.remove("show"),
+          );
+        if (btnClearConfirm)
+          btnClearConfirm.addEventListener("click", () => {
+            custom = [];
+            favs = [];
+            index = 0;
+            localStorage.removeItem(KEYS.custom);
+            localStorage.removeItem(KEYS.favs);
+            localStorage.removeItem(KEYS.index);
+            saveAll();
+            show(index);
+            renderFavs();
+            renderCustomAffs();
+
+            clearAlert.classList.remove("show");
+            toast("Cleared");
+          });
+
+        const btnDeleteConfirm = document.getElementById("btnDeleteConfirm");
+        const btnDeleteCancel = document.getElementById("btnDeleteCancel");
+        const deleteAlert = document.getElementById("dlgDeleteAlert");
+
+        if (btnDeleteConfirm && deleteAlert)
+          btnDeleteConfirm.addEventListener("click", confirmDelete);
+
+        if (btnDeleteCancel && deleteAlert)
+          btnDeleteCancel.addEventListener("click", cancelDelete);
+
+        document.addEventListener("keydown", (e) => {
+          const activeElement = document.activeElement;
+          if (
+            activeElement.tagName === "TEXTAREA" ||
+            activeElement.tagName === "INPUT"
+          ) {
+            return;
+          }
+
+          if (e.key === "ArrowRight") next();
+          if (e.key === "ArrowLeft") prev();
+          if (e.key.toLowerCase() === "f") toggleFav();
+          if (e.key.toLowerCase() === "c") copyText();
+          if (e.key.toLowerCase() === "p") printOne();
+        });
+
+        syncStarBackgroundWithTheme();
+        handleShortcuts();
+      });
+
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./service-worker.js")
+            .catch((err) =>
+              console.error("Service worker registration failed", err),
+            );
+        });
+      }
+
+      let deferredPrompt;
+      const installBanner = document.getElementById("installBanner");
+      const installButton = document.getElementById("btnInstallPwa");
+      const installDismiss = document.getElementById("btnInstallDismiss");
+      const isStandalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone;
+
+      const canShowInstallBanner = () =>
+        !isStandalone &&
+        !localStorage.getItem("pwa-install-dismissed") &&
+        !localStorage.getItem("pwa-install-prompt-shown");
+
+      const showInstallBanner = () => {
+        if (!installBanner || !canShowInstallBanner()) return;
+        installBanner.classList.add("show");
+        installBanner.setAttribute("aria-hidden", "false");
+      };
+
+      const hideInstallBanner = () => {
+        if (!installBanner) return;
+        installBanner.classList.remove("show");
+        installBanner.setAttribute("aria-hidden", "true");
+      };
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        if (!canShowInstallBanner()) return;
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallBanner();
+      });
+
+      if (installButton) {
+        installButton.addEventListener("click", async () => {
+          if (!deferredPrompt) {
+            localStorage.setItem("pwa-install-dismissed", "true");
+            hideInstallBanner();
+            toast("Tarayici menusunden Ana Ekrana Ekle.");
+            return;
+          }
+          try {
+            await deferredPrompt.prompt();
+            await deferredPrompt.userChoice;
+            localStorage.setItem("pwa-install-prompt-shown", "true");
+          } finally {
+            deferredPrompt = null;
+            hideInstallBanner();
+          }
+        });
+      }
+
+      if (installDismiss) {
+        installDismiss.addEventListener("click", () => {
+          localStorage.setItem("pwa-install-dismissed", "true");
+          hideInstallBanner();
+        });
+      }
+
+      setTimeout(() => {
+        if (canShowInstallBanner()) {
+          showInstallBanner();
+        }
+      }, 1500);
+    </script>
+  </body>
+</html>

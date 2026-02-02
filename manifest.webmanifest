@@ -1,0 +1,92 @@
+{
+  "name": "Aurelin - Affirmations",
+  "short_name": "Affirmations",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6ecff",
+  "theme_color": "#4f46e5",
+  "description": "Daily affirmation generator with favorites, sharing and offline support.",
+  "icons": [
+    {
+      "src": "icon_48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon_72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon_96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon_144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon_256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot_desktop.webp",
+      "sizes": "1920x1080",
+      "type": "image/webp",
+      "platform": "wide"
+    },
+    {
+      "src": "screenshot_mobile.webp",
+      "sizes": "750x1334",
+      "type": "image/webp",
+      "platform": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Favorites",
+      "short_name": "Favorites",
+      "description": "Quickly view all your saved affirmations.",
+      "url": "./?shortcut=favs",
+      "icons": [
+        { "src": "shortcut_fav_96.png", "sizes": "96x96" },
+        { "src": "shortcut_fav_144.png", "sizes": "144x144" },
+        { "src": "shortcut_fav_192.png", "sizes": "192x192" }
+      ]
+    },
+    {
+      "name": "Add New Quote",
+      "short_name": "Add New",
+      "description": "Add your own custom affirmation.",
+      "url": "./?shortcut=add",
+      "icons": [
+        { "src": "shortcut_add_96.png", "sizes": "96x96" },
+        { "src": "shortcut_add_144.png", "sizes": "144x144" },
+        { "src": "shortcut_add_192.png", "sizes": "192x192" }
+      ]
+    }
+  ]
+}
