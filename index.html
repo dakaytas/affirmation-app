@@ -2241,12 +2241,12 @@
         const font = await pdfDoc.embedFont(StandardFonts.TimesRoman);
         const fontBold = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
         let page = pdfDoc.addPage(PageSizes.A4);
-        const margin = 48;
+        const margin = 36;
         const maxWidth = page.getWidth() - margin * 2;
         let y = page.getHeight() - margin;
-        const titleSize = 22;
-        const textSize = 14;
-        const lineHeight = textSize * 1.45;
+        const titleSize = 32;
+        const textSize = 24;
+        const lineHeight = textSize * 1.6;
         const bgColor = rgb(0.98, 0.97, 1);
         const boxBg = rgb(1, 1, 1);
         const accent = rgb(0.39, 0.4, 0.95);
@@ -2267,19 +2267,27 @@
             font: fontBold,
             color: rgb(0.12, 0.16, 0.23),
           });
-          y -= titleSize + 18;
+          y -= titleSize + 10;
         };
 
         drawTitle();
         quotes.forEach((q, idx) => {
           const lines = wrapPdfText(q, font, textSize, maxWidth);
-          const blockHeight = lines.length * lineHeight + 18;
+          const blockHeight = lines.length * lineHeight + 28;
           if (y - blockHeight < margin) {
             page = pdfDoc.addPage(PageSizes.A4);
             y = page.getHeight() - margin;
             drawTitle();
           }
-          const boxY = y - blockHeight + 6;
+          const boxY = y - blockHeight + 10;
+          page.drawRectangle({
+            x: margin + 3,
+            y: boxY - 3,
+            width: maxWidth,
+            height: blockHeight,
+            color: rgb(0.1, 0.1, 0.1),
+            opacity: 0.08,
+          });
           page.drawRectangle({
             x: margin,
             y: boxY,
@@ -2290,10 +2298,26 @@
             color: boxBg,
             opacity: 0.95,
           });
-          let textY = y - textSize - 6;
+          page.drawText("*", {
+            x: margin + 10,
+            y: boxY + blockHeight / 2 - 6,
+            size: 14,
+            font,
+            color: accent,
+            opacity: 0.4,
+          });
+          page.drawText("*", {
+            x: margin + maxWidth - 16,
+            y: boxY + blockHeight / 2 - 6,
+            size: 14,
+            font,
+            color: accent,
+            opacity: 0.4,
+          });
+          let textY = y - textSize - 8;
           lines.forEach((line) => {
             page.drawText(line, {
-              x: margin + 12,
+              x: margin + 20,
               y: textY,
               size: textSize,
               font,
@@ -2301,7 +2325,7 @@
             });
             textY -= lineHeight;
           });
-          y = boxY - 18;
+          y = boxY - 24;
           if (idx < quotes.length - 1) y -= 6;
         });
 
@@ -2903,6 +2927,7 @@
     </script>
   </body>
 </html>
+
 
 
 
