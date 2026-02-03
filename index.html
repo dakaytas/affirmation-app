@@ -904,6 +904,23 @@
           width: auto;
           max-width: 72px;
         }
+        #dlgMyQuotes .dlg-hd .pbtn,
+        #dlgFavs .dlg-hd .pbtn {
+          padding: var(--padding-sm) 4px;
+          min-width: 0;
+          width: auto;
+        }
+        #dlgMyQuotes .dlg-ft {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        #dlgMyQuotes .dlg-ft .pbtn {
+          flex: 0 1 auto;
+          min-width: 0;
+          width: auto;
+          padding: 8px 10px;
+          font-size: 12px;
+        }
         .content {
           padding: var(--spacing-md);
         }
@@ -1056,6 +1073,13 @@
           flex-basis: 100%;
           min-width: 100%;
           width: 100%;
+        }
+        #dlgMyQuotes .dlg-hd .pbtn,
+        #dlgFavs .dlg-hd .pbtn {
+          flex-basis: auto;
+          min-width: 0;
+          width: auto;
+          padding: var(--padding-sm) 4px;
         }
         .hbtn {
           font-size: 24px !important;
@@ -2166,6 +2190,10 @@
           return `<div style="text-align:center;opacity:0.2;font-size:32px">✿ ❀ ✿</div>`;
         return "";
       }
+      const isTouchDevice = () =>
+        window.matchMedia("(pointer: coarse)").matches ||
+        navigator.maxTouchPoints > 0;
+
       function renderPrint(quotes, title) {
         const logo = LOGO_URL
           ? `<img src="${LOGO_URL}" alt="Logo" style="width:40px;height:40px;border-radius:8px"/>`
@@ -2183,6 +2211,11 @@
           )
           .join("");
         const htmlStr = `<!DOCTYPE html><html><head><meta charset="utf-8"/><title>${title}</title><style>@page{margin:0.5in;}body{font-family:Georgia,serif;color:#222;padding:40px 20px;position:relative;background:linear-gradient(135deg,#faf7ff 0%,#f0f9ff 100%);}h1{font-family: Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;text-align:center;font-size:32px;color:#1e293b;font-weight:400;letter-spacing:1px;margin-bottom:10px;}.affirmations-container{max-width:650px;margin:0 auto;}.affirmation-box{position:relative;margin:24px 0;padding:28px 44px;background:linear-gradient(135deg,rgba(255,255,255,0.95),rgba(250,250,255,0.9));border:1.5px solid rgba(99,102,241,0.15);border-radius:16px;box-shadow:0 8px 24px rgba(79,70,229,0.08),inset 0 1px 0 rgba(255,255,255,0.8);min-height:80px;display:flex;align-items:center;justify-content:center;page-break-inside:avoid;}.box-content{font-style:italic;font-size:24px;line-height:1.6;color:#1e293b;text-align:center;}.star-left,.star-right{position:absolute;top:50%;transform:translateY(-50%);font-size:14px;color:#8b5cf6;opacity:0.2;}.star-left{left:12px;}.star-right{right:12px;}</style></head><body><div style="text-align:center;margin-bottom:20px">${logo}</div><h1>${title}</h1>${decor}<div class="affirmations-container">${items}</div></body></html>`;
+        if (isTouchDevice()) {
+          openAndShowPdf(htmlStr);
+          return;
+        }
+
         try {
           const iframe = document.createElement("iframe");
           Object.assign(iframe.style, {
@@ -2244,6 +2277,15 @@
           };
         } else {
           toast("Pop-ups must be enabled to print.");
+        }
+      }
+      function openAndShowPdf(htmlStr) {
+        const newWindow = window.open("about:blank", "_blank");
+        if (newWindow) {
+          newWindow.document.write(htmlStr);
+          newWindow.document.close();
+        } else {
+          toast("Pop-ups must be enabled to open the PDF.");
         }
       }
       const printOne = () => renderPrint([currentText], "My Affirmation");
@@ -2746,3 +2788,4 @@
     </script>
   </body>
 </html>
+
