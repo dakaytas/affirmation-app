@@ -2196,6 +2196,15 @@
         window.matchMedia("(pointer: coarse)").matches ||
         navigator.maxTouchPoints > 0;
 
+      const updatePrintLabels = () => {
+        const label = isTouchDevice() ? "PDF" : "Print / PDF";
+        const ids = ["btnPrint", "btnFavPrint", "btnMyQuotesPrint"];
+        ids.forEach((id) => {
+          const btn = document.getElementById(id);
+          if (btn) btn.textContent = label;
+        });
+      };
+
       function renderPrint(quotes, title) {
         const logo = LOGO_URL
           ? `<img src="${LOGO_URL}" alt="Logo" style="width:40px;height:40px;border-radius:8px"/>`
@@ -2456,6 +2465,7 @@
         index =
           isFinite(saved) && saved >= 0 && saved < deck.length ? saved : 0;
         show(index);
+        updatePrintLabels();
 
         document.getElementById("navNext").addEventListener("click", next);
         document.getElementById("navPrev").addEventListener("click", prev);
@@ -2798,6 +2808,7 @@
     </script>
   </body>
 </html>
+
 
 
 
