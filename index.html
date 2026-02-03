@@ -2214,8 +2214,7 @@
         });
       };
 
-      const sanitizePdfText = (text) =>
-        text.replace(/[^\u0000-\u00FF]/g, "");
+      const sanitizePdfText = (text) => text.replace(/[^\u0000-\u00FF]/g, "");
 
       const wrapPdfText = (text, font, size, maxWidth) => {
         const words = text.split(" ");
@@ -2243,11 +2242,13 @@
         const pdfDoc = await PDFDocument.create();
         const font = await pdfDoc.embedFont(StandardFonts.TimesRoman);
         const fontBold = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
-        const fontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic);
+        const fontItalic = await pdfDoc.embedFont(
+          StandardFonts.TimesRomanItalic,
+        );
         let page = pdfDoc.addPage(PageSizes.A4);
         const margin = 36;
         const maxWidth = page.getWidth() - margin * 2;
-        let y = page.getHeight() - margin;
+        let y = page.getHeight() - margin - 12;
         const titleSize = 32;
         const textSize = 24;
         const lineHeight = textSize * 1.6;
@@ -2931,6 +2932,7 @@
     </script>
   </body>
 </html>
+
 
 
 
