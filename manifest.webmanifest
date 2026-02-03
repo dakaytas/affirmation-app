@@ -74,9 +74,30 @@
       "description": "Quickly view all your saved affirmations.",
       "url": "./?shortcut=favs",
       "icons": [
-        { "src": "shortcut_fav_96.png", "sizes": "96x96" },
-        { "src": "shortcut_fav_144.png", "sizes": "144x144" },
-        { "src": "shortcut_fav_192.png", "sizes": "192x192" }
+        {
+          "src": "shortcut_fav_96.png",
+          "sizes": "96x96",
+          "type": "image/png",
+          "purpose": "maskable"
+        },
+        {
+          "src": "shortcut_fav_144.png",
+          "sizes": "144x144",
+          "type": "image/png",
+          "purpose": "maskable"
+        },
+        {
+          "src": "shortcut_fav_192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "maskable"
+        },
+        {
+          "src": "shortcut_fav_512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "maskable"
+        }
       ]
     },
     {
@@ -85,10 +106,32 @@
       "description": "Add your own custom affirmation.",
       "url": "./?shortcut=add",
       "icons": [
-        { "src": "shortcut_add_96.png", "sizes": "96x96" },
-        { "src": "shortcut_add_144.png", "sizes": "144x144" },
-        { "src": "shortcut_add_192.png", "sizes": "192x192" }
+        {
+          "src": "shortcut_add_96.png",
+          "sizes": "96x96",
+          "type": "image/png",
+          "purpose": "maskable"
+        },
+        {
+          "src": "shortcut_add_144.png",
+          "sizes": "144x144",
+          "type": "image/png",
+          "purpose": "maskable"
+        },
+        {
+          "src": "shortcut_add_192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "maskable"
+        },
+        {
+          "src": "shortcut_add_512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "maskable"
+        }
       ]
     }
   ]
 }
+
