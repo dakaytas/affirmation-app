@@ -2192,9 +2192,17 @@
           return `<div style="text-align:center;opacity:0.2;font-size:32px">✿ ❀ ✿</div>`;
         return "";
       }
-      const isTouchDevice = () =>
-        window.matchMedia("(pointer: coarse)").matches ||
-        navigator.maxTouchPoints > 0;
+      const isTouchDevice = () => {
+        const coarse =
+          window.matchMedia("(pointer: coarse)").matches ||
+          window.matchMedia("(any-pointer: coarse)").matches;
+        const noHover =
+          window.matchMedia("(hover: none)").matches ||
+          window.matchMedia("(any-hover: none)").matches;
+        const touchPoints = navigator.maxTouchPoints > 0;
+        const touchEvent = "ontouchstart" in window;
+        return coarse || noHover || touchPoints || touchEvent;
+      };
 
       const updatePrintLabels = () => {
         const label = isTouchDevice() ? "PDF" : "Print / PDF";
@@ -2801,6 +2809,7 @@
     </script>
   </body>
 </html>
+
 
 
 
