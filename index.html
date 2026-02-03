@@ -2295,14 +2295,6 @@
         if (newWindow) {
           newWindow.document.write(htmlStr);
           newWindow.document.close();
-          newWindow.onload = () => {
-            try {
-              newWindow.focus();
-              newWindow.print();
-            } catch (e) {
-              return;
-            }
-          };
         } else {
           toast("Pop-ups must be enabled to open the PDF.");
         }
@@ -2808,6 +2800,7 @@
     </script>
   </body>
 </html>
+
 
 
 
