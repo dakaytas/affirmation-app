@@ -13,6 +13,7 @@ const PRECACHE_ASSETS = [
   "./icon_192.png",
   "./icon_256.png",
   "./icon_512.png",
+  "./audio.wav",
   "./shortcut_add_96.png",
   "./shortcut_add_144.png",
   "./shortcut_add_192.png",
