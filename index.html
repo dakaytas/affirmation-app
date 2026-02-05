@@ -386,18 +386,21 @@
         height: 24px;
       }
 
-      .hbtn:hover {
-        background: rgba(208, 208, 208, 0.9) !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1) !important;
-        color: var(--text) !important;
-      }
+      @media (hover: hover) {
+        .hbtn:hover {
+          background: rgba(208, 208, 208, 0.9) !important;
+          transform: translateY(-2px) !important;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15),
+            0 0 0 1px rgba(0, 0, 0, 0.1) !important;
+          color: var(--text) !important;
+        }
 
-      [data-theme="dark"] .hbtn:hover {
-        background: rgba(255, 255, 255, 0.1) !important;
-        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1),
-          0 0 0 1px rgba(255, 255, 255, 0.05) !important;
-        color: var(--text) !important;
+        [data-theme="dark"] .hbtn:hover {
+          background: rgba(255, 255, 255, 0.1) !important;
+          box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1),
+            0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+          color: var(--text) !important;
+        }
       }
 
       .hbtn:active {
@@ -3092,6 +3095,7 @@
     </script>
   </body>
 </html>
+
 
 
 
