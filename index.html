@@ -113,7 +113,8 @@
         );
       }
 
-      :root:not([data-theme="dark"]) #btnTheme {
+      :root:not([data-theme="dark"]) #btnTheme,
+      :root:not([data-theme="dark"]) #btnAudio {
         background: rgba(255, 255, 255, 0.72);
         border: 1px solid var(--border);
         color: #404040;
@@ -122,7 +123,8 @@
         backdrop-filter: blur(8px);
       }
 
-      [data-theme="dark"] #btnTheme {
+      [data-theme="dark"] #btnTheme,
+      [data-theme="dark"] #btnAudio {
         background: rgba(255, 255, 255, 0.1) !important;
         color: #e5e7eb !important;
         border-color: rgba(148, 163, 184, 0.45) !important;
@@ -379,6 +381,11 @@
         margin-left: 1px;
       }
 
+      #btnAudio svg {
+        width: 26px;
+        height: 26px;
+      }
+
       .hbtn:hover {
         background: rgba(208, 208, 208, 0.9) !important;
         transform: translateY(-2px) !important;
@@ -398,6 +405,18 @@
         transform: translateY(-1px) !important;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12),
           inset 0 0 0 999px rgba(0, 0, 0, 0.06) !important;
+      }
+
+      #btnAudio .audio-off {
+        display: none;
+      }
+
+      #btnAudio.is-muted .audio-off {
+        display: block;
+      }
+
+      #btnAudio.is-muted .audio-on {
+        display: none;
       }
 
       [data-theme="dark"] .hbtn {
@@ -1113,6 +1132,32 @@
       <div class="bar">
         <div class="brand" aria-label="Brand">Affirmations</div>
         <div class="right">
+          <button id="btnAudio" class="hbtn" aria-pressed="false">
+            <svg
+              class="audio-on"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="currentColor"
+            >
+              <path
+                d="M560-131v-82q90-26 145-100t55-168q0-94-55-168T560-749v-82q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm440 40v-322q47 22 73.5 66t26.5 96q0 51-26.5 94.5T560-320ZM400-606l-86 86H200v80h114l86 86v-252ZM300-480Z"
+              />
+            </svg>
+            <svg
+              class="audio-off"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="currentColor"
+            >
+              <path
+                d="M792-56 671-177q-25 16-53 27.5T560-131v-82q14-5 27.5-10t25.5-12L480-368v208L280-360H120v-240h128L56-792l56-56 736 736-56 56Zm-8-232-58-58q17-31 25.5-65t8.5-70q0-94-55-168T560-749v-82q124 28 202 125.5T840-481q0 53-14.5 102T784-288ZM650-422l-90-90v-130q47 22 73.5 66t26.5 96q0 15-2.5 29.5T650-422ZM480-592 376-696l104-104v208Zm-80 238v-94l-72-72H200v80h114l86 86Zm-36-130Z"
+              />
+            </svg>
+          </button>
           <button id="btnTheme" class="hbtn" aria-pressed="false">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -1128,6 +1173,9 @@
           </button>
         </div>
       </div>
+      <audio id="bgAudio" preload="none" loop>
+        <source src="audio.wav" type="audio/mpeg" />
+      </audio>
 
       <div class="content">
         <div id="quote" class="quote" aria-live="polite">
@@ -2693,6 +2741,117 @@
           btnTheme.setAttribute("aria-pressed", String(!isDark));
           syncStarBackgroundWithTheme();
         });
+
+        const btnAudio = document.getElementById("btnAudio");
+        const bgAudio = document.getElementById("bgAudio");
+        if (btnAudio && bgAudio) {
+          const AUDIO_VOLUME = 0.5;
+          const CROSSFADE = 0.6;
+          let audioCtx;
+          let audioBuffer;
+          let audioTimer;
+          let audioSources = [];
+          let audioOn = false;
+          btnAudio.classList.add("is-muted");
+
+          const getAudioSrc = () => {
+            const sourceEl = bgAudio.querySelector("source");
+            return (
+              (sourceEl && sourceEl.getAttribute("src")) || bgAudio.src || ""
+            );
+          };
+
+          const stopAudio = () => {
+            audioOn = false;
+            if (audioTimer) {
+              clearTimeout(audioTimer);
+              audioTimer = null;
+            }
+            audioSources.forEach(({ source }) => {
+              try {
+                source.stop(0);
+              } catch (e) {
+                return;
+              }
+            });
+            audioSources = [];
+            btnAudio.classList.add("is-muted");
+            btnAudio.setAttribute("aria-pressed", "false");
+          };
+
+          const scheduleSource = (startTime, fadeTime) => {
+            if (!audioOn || !audioBuffer || !audioCtx) return;
+            const source = audioCtx.createBufferSource();
+            const gain = audioCtx.createGain();
+            source.buffer = audioBuffer;
+            source.connect(gain).connect(audioCtx.destination);
+            const duration = audioBuffer.duration;
+            const endTime = startTime + duration;
+            gain.gain.setValueAtTime(0, startTime);
+            gain.gain.linearRampToValueAtTime(
+              AUDIO_VOLUME,
+              startTime + fadeTime,
+            );
+            gain.gain.setValueAtTime(
+              AUDIO_VOLUME,
+              Math.max(startTime + fadeTime, endTime - fadeTime),
+            );
+            gain.gain.linearRampToValueAtTime(0, endTime);
+            source.start(startTime);
+            source.stop(endTime + 0.05);
+            source.onended = () => {
+              audioSources = audioSources.filter((s) => s.source !== source);
+            };
+            audioSources.push({ source, gain });
+            const nextStart = endTime - fadeTime;
+            audioTimer = setTimeout(() => {
+              scheduleSource(nextStart, fadeTime);
+            }, Math.max(0, (duration - fadeTime) * 1000));
+          };
+
+          const startAudio = async () => {
+            if (audioOn) return;
+            try {
+              if (!audioCtx) {
+                audioCtx = new (window.AudioContext ||
+                  window.webkitAudioContext)();
+              }
+              if (audioCtx.state === "suspended") {
+                await audioCtx.resume();
+              }
+              if (!audioBuffer) {
+                const src = getAudioSrc();
+                if (!src) {
+                  toast("Audio file not found.");
+                  return;
+                }
+                const res = await fetch(src);
+                const data = await res.arrayBuffer();
+                audioBuffer = await audioCtx.decodeAudioData(data);
+              }
+              audioOn = true;
+              btnAudio.classList.remove("is-muted");
+              btnAudio.setAttribute("aria-pressed", "true");
+              const fadeTime = Math.min(
+                CROSSFADE,
+                Math.max(0.1, audioBuffer.duration / 4),
+              );
+              const startTime = audioCtx.currentTime + 0.05;
+              scheduleSource(startTime, fadeTime);
+            } catch (e) {
+              stopAudio();
+              toast("Audio file not found or playback blocked.");
+            }
+          };
+
+          btnAudio.addEventListener("click", () => {
+            if (audioOn) {
+              stopAudio();
+            } else {
+              startAudio();
+            }
+          });
+        }
 
         const btnResetAll = document.getElementById("btnResetAll");
         const clearAlert = document.getElementById("clearAlert");
