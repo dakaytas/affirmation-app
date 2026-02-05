@@ -1276,7 +1276,9 @@
         </button>
       </div>
       <div class="dlg-bd">
-        <div id="favList">(none)</div>
+        <div id="favList" style="color: var(--muted); text-align: center">
+          You haven't added any favorites yet.
+        </div>
       </div>
       <div class="dlg-ft">
         <button id="btnFavPrint" class="pbtn small">Print</button>
@@ -2091,12 +2093,18 @@
         const editErr = document.getElementById("editErr");
         const newText = (txtEdit.value || "").trim();
         const oldText = editingQuote;
-
-        if (newText.length < 3 || newText.length > 200) {
-          editErr.style.display = "block";
-          return;
+        if (editErr) {
+          editErr.textContent = "";
+          editErr.style.display = "none";
         }
 
+        if (newText.length < 3 || newText.length > 200) {
+          if (editErr) {
+            editErr.textContent = "Please enter 3–200 characters.";
+            editErr.style.display = "block";
+          }
+          return;
+        }
         custom[editingIndex] = newText;
 
         favs = favs.map((f) => (f === oldText ? newText : f));
@@ -2119,8 +2127,15 @@
         const inp = document.getElementById("txtAff");
         const err = document.getElementById("addErr");
         const t = (inp.value || "").trim();
+        if (err) {
+          err.textContent = "";
+          err.style.display = "none";
+        }
         if (t.length < 3 || t.length > 200) {
-          err.style.display = "block";
+          if (err) {
+            err.textContent = "Please enter 3–200 characters.";
+            err.style.display = "block";
+          }
           return;
         }
         custom.push(t);
@@ -3095,6 +3110,7 @@
     </script>
   </body>
 </html>
+
 
 
 
