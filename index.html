@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -118,7 +118,8 @@
         background: rgba(255, 255, 255, 0.72);
         border: 1px solid var(--border);
         color: #404040;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6),
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.6),
           0 4px 10px rgba(0, 0, 0, 0.06);
         backdrop-filter: blur(8px);
       }
@@ -145,8 +146,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
-          Helvetica, Arial;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial;
         color: var(--text);
         background: var(--bg) fixed;
 
@@ -175,7 +182,9 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: var(--ui-overlay), var(--ui-bg) center 65% / cover no-repeat;
+        background:
+          var(--ui-overlay),
+          var(--ui-bg) center 65% / cover no-repeat;
         border-radius: 20px;
         filter: saturate(1.02) contrast(1.02);
         z-index: -1;
@@ -219,7 +228,8 @@
       }
 
       .right .pbtn {
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18),
+        box-shadow:
+          0 6px 16px rgba(0, 0, 0, 0.18),
           inset 0 1px 0 rgba(255, 255, 255, 0.5);
       }
 
@@ -284,7 +294,9 @@
         background: transparent;
         box-shadow: none;
         cursor: pointer;
-        transition: transform 0.12s ease, opacity 0.2s ease;
+        transition:
+          transform 0.12s ease,
+          opacity 0.2s ease;
         user-select: none;
         color: #4a4a4a;
       }
@@ -333,9 +345,12 @@
         background: #fff;
         color: #404040;
         cursor: pointer;
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08),
+        box-shadow:
+          0 6px 16px rgba(0, 0, 0, 0.08),
           inset 0 1px 0 rgba(255, 255, 255, 0.5);
-        transition: transform 0.12s ease, filter 0.12s ease;
+        transition:
+          transform 0.12s ease,
+          filter 0.12s ease;
         text-align: center;
         outline: none;
         -webkit-tap-highlight-color: transparent;
@@ -355,7 +370,8 @@
       .pbtn:active {
         transform: translateY(0) scale(0.98);
         filter: brightness(0.98);
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08),
+        box-shadow:
+          0 3px 10px rgba(0, 0, 0, 0.08),
           inset 0 0 0 999px rgba(0, 0, 0, 0.04);
       }
 
@@ -369,7 +385,9 @@
         align-items: center !important;
         justify-content: center !important;
         transform: translateY(-1px) !important;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05) !important;
+        box-shadow:
+          0 2px 5px rgba(0, 0, 0, 0.1),
+          0 0 0 1px rgba(0, 0, 0, 0.05) !important;
         border: none !important;
         cursor: pointer;
         font-size: 26px !important;
@@ -390,14 +408,16 @@
         .hbtn:hover {
           background: rgba(208, 208, 208, 0.9) !important;
           transform: translateY(-2px) !important;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15),
+          box-shadow:
+            0 4px 8px rgba(0, 0, 0, 0.15),
             0 0 0 1px rgba(0, 0, 0, 0.1) !important;
           color: var(--text) !important;
         }
 
         [data-theme="dark"] .hbtn:hover {
           background: rgba(255, 255, 255, 0.1) !important;
-          box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1),
+          box-shadow:
+            0 4px 8px rgba(255, 255, 255, 0.1),
             0 0 0 1px rgba(255, 255, 255, 0.05) !important;
           color: var(--text) !important;
         }
@@ -406,7 +426,8 @@
       .hbtn:active {
         background: rgba(148, 163, 184, 0.15) !important;
         transform: translateY(-1px) !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12),
+        box-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.12),
           inset 0 0 0 999px rgba(0, 0, 0, 0.06) !important;
       }
 
@@ -644,7 +665,8 @@
         background-image: none !important;
         color: white !important;
         background-color: rgb(253, 171, 217) !important;
-        box-shadow: 0 6px 16px rgba(214, 122, 174, 0.5),
+        box-shadow:
+          0 6px 16px rgba(214, 122, 174, 0.5),
           inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
         transition: all 0.2s ease;
       }
@@ -653,7 +675,8 @@
         background-color: rgba(240, 236, 249, 0.3) !important;
         border-color: rgba(218, 213, 232, 0.8) !important;
         color: #e5e7eb !important;
-        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35),
+        box-shadow:
+          0 4px 12px rgba(139, 92, 246, 0.35),
           0 1px 0 rgba(255, 255, 255, 0.1) inset !important;
         background-image: none !important;
         transition: all 0.2s ease;
@@ -2147,7 +2170,10 @@
         toast("Added");
 
         renderCustomAffs();
-        document.getElementById("dlgMyQuotes").showModal();
+        if (isOpenedFromMyQuotes) {
+          document.getElementById("dlgMyQuotes").showModal();
+        }
+        isOpenedFromMyQuotes = false;
       }
 
       function toast(msg) {
@@ -2822,17 +2848,21 @@
             };
             audioSources.push({ source, gain });
             const nextStart = endTime - fadeTime;
-            audioTimer = setTimeout(() => {
-              scheduleSource(nextStart, fadeTime);
-            }, Math.max(0, (duration - fadeTime) * 1000));
+            audioTimer = setTimeout(
+              () => {
+                scheduleSource(nextStart, fadeTime);
+              },
+              Math.max(0, (duration - fadeTime) * 1000),
+            );
           };
 
           const startAudio = async () => {
             if (audioOn) return;
             try {
               if (!audioCtx) {
-                audioCtx = new (window.AudioContext ||
-                  window.webkitAudioContext)();
+                audioCtx = new (
+                  window.AudioContext || window.webkitAudioContext
+                )();
               }
               if (audioCtx.state === "suspended") {
                 await audioCtx.resume();
@@ -3110,3 +3140,4 @@
     </script>
   </body>
 </html>
+
